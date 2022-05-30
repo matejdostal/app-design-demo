@@ -1,0 +1,28 @@
+
+- číslo vozidla: vehicle_number
+
+- číslo linky: line_name
+    - nemusí byť vyplnené
+
+- cieľová zastávka: destination_stop_name
+    - nemusí byť vyplnené
+
+- aktuálna zastávka: current_stop_name
+    - nemusí byť vyplnené
+
+- stav meškania/nadbiehania: time_difference
+    - napr.:
+        - "-00:00:29" - znamená, že autobus mešká 29 sekúnd
+            - zobraziť: "Meškanie 00:29"
+        - "00:02:30" - znamená, že autobus nadbieha 2 minúty a 30 sekúnd
+            - zobraziť: "Nadbiehanie 02:30"
+    - nemusí byť vyplnené
+
+- čas poslednej správy: state_dtime
+    - napr.: "2022-05-27 13:45:02"
+        - zobraziť: "27.05.2022, 13:45:02" alebo "Dnes, 13:45:02"
+    - nemusí byť vyplnené
+
+- stav online/offline: online
+    - može sa zobraziť ako text alebo nejak inak graficky (ikona, podfarbenie...)
+    - nemusí byť vyplnené
