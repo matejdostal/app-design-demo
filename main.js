@@ -2,16 +2,16 @@ const { useState, useEffect } = React;
 
 const CreateHeader = () => {
     return (
-        <header className="bg-dark text-white navbar">
-            <div className="container">
-                <div className="">
-                    <div className="searchbox">
+        <header>
+            <nav className="bg-dark text-white navbar navbar-expand-lg">
+                <div className="container-fluid justify-content-center">
+                    <div className="searchbox p-2 col-lg nav-item">
                         <div class="form-outline" id="search-auto">
                             <input id="search-input" type="search" class="form-control" placeholder="Hladať" />
                         </div>
                     </div>
                 </div>
-            </div>
+            </nav>
         </header>
     );
 }

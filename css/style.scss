@@ -11,14 +11,17 @@
 
 .vehicle-number {
     font-weight: bold;
+    &-circle {
+        width: 32px;
+        height: 32px;
+    }
 }
 
-.navbar {
-    float: left;
+header {
     width: 100%;
-    position: fixed;
     top: 0;
     transition: top 0.3s;
+    padding: 0;
 }
 
 .vehicle-number-text {
