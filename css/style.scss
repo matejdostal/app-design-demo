@@ -32,3 +32,24 @@ header {
         color: aquamarine;
     }
 }
+
+.dataroot {
+    top: 0.4rem;
+}
+
+.bg-vehicle {
+    width: 32px;
+    height: 32px;
+    &-online {
+        background-color: aquamarine;
+    }
+    &-offline {
+        background-color: grey;
+    }
+    &-error {
+        background-color: red;
+    }
+    &-late {
+        background-color: orange;
+    }
+}

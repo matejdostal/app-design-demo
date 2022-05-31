@@ -12,13 +12,16 @@
 .vehicle-number {
   font-weight: bold;
 }
+.vehicle-number-circle {
+  width: 32px;
+  height: 32px;
+}
 
-.navbar {
-  float: left;
+header {
   width: 100%;
-  position: fixed;
   top: 0;
   transition: top 0.3s;
+  padding: 0;
 }
 
 .vehicle-number-text {
@@ -28,6 +31,27 @@
 }
 .vehicle-number-text:hover {
   color: aquamarine;
+}
+
+.dataroot {
+  top: 0.4rem;
+}
+
+.bg-vehicle {
+  width: 32px;
+  height: 32px;
+}
+.bg-vehicle-online {
+  background-color: aquamarine;
+}
+.bg-vehicle-offline {
+  background-color: grey;
+}
+.bg-vehicle-error {
+  background-color: red;
+}
+.bg-vehicle-late {
+  background-color: orange;
 }
 
 /*# sourceMappingURL=style.css.map */

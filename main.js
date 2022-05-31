@@ -34,6 +34,37 @@ const formatDate = (date) => {
     return ("| " + date + " |");
 }
 
+const ParseTime = (timestring) => {
+    const d = new Date(timestring);
+    let h = d.getHours();
+    let m = d.getMinutes();
+    let s = d.getSeconds();
+
+    return ((h*3600) + (m*60) + (s));
+}
+
+const IconBackground = (vehicle) => {
+    const isOnline = vehicle.online;
+
+    if (vehicle.errors !== null && vehicle.errors.lenght > 0) {
+        return ("bg-vehicle-error ");
+    }
+    else if (isOnline == false) {
+        return ("bg-vehicle-offline ");
+    }
+    else if (isOnline == true && vehicle.time_difference !== null) {
+        if (ParseTime(vehicle.time_difference) > ParseTime("00:01:00")) {
+            return ("bg-vehicle-late ");
+        }
+        else {
+            return ("bg-vehicle-online ");
+        }
+    }
+    else {
+        return ("bg-vehicle-online ");
+    }
+}
+
 const ConatinerData = () => {
     const [vehicles, setVehicles] = useState([]);
 
@@ -46,17 +77,20 @@ const ConatinerData = () => {
             });
     }, []);
     return (
-        <div className="container">
+        <div className="container dataroot">
             {vehicles.map((vehicle) => {
                 const fDate = formatDate(vehicle.state_dtime);
                 return (
-                    <div key={vehicle.vehicle_number} className="row justify-content-between item">
-                        <div className="col vehicle-number">
-                            <div className="rounded-circle vehicle-number-circle">
-                                <a className="text-center vehicle-number-text">{vehicle.vehicle_number}</a>
+                    <div key={vehicle.vehicle_number} className="flex-d align-items-center p-3 my-3 item">
+                        <div className={
+                            IconBackground(vehicle) +
+                            " justfiy-content-start vehicle-number"
+                            }>
+                            <div className="rounded-circle bd-placeholder vehicle-number-circle">
+                                <a className="text-center vehicle-number-text" href="#">{vehicle.vehicle_number}</a>
                             </div>
                         </div>
-                        <div className="col-6 item-info">
+                        <div className="item-info">
                             <div className="row ">
                                 <div className="">{vehicle.current_stop_name}</div>
                                 <div>{fDate}</div>
