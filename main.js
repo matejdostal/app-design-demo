@@ -121,10 +121,12 @@ const typeBadge = (vehicle) => {
  * @param {string} timestring 
  * @returns {int} the time in seconds
  */
+// TODO: bug, there is a bug, I just can't fix it atm
 const parseTime = (timestring) => {
-    const time = timestring.match( /(-?[0-9][0-9]:[0-9][0-9]:[0-9][0-9])/g );
+    if (timestring === undefined || timestring === null) return undefined;
+    let time = timestring.match( /(-?[0-9][0-9]:[0-9][0-9]:[0-9][0-9])/g );
     if (time !== null) {
-        const s = time.match(/[-]/);
+        const s = time.toString().match(/[-]/g);
         const g = time.toString().split(':');
         if (s === null) {
             return ((g[0]*3600) + (g[1]*60) + (g[2]));
@@ -155,11 +157,12 @@ const IconBackground = (vehicle) => {
         return ("bg-vehicle-offline ");
     }
     else if (isOnline == true && vehicle.time_difference !== null) {
+        // TODO: not working properly, at least in my head
         if (parseTime(vehicle.time_difference) > parseTime(TimeDifferenceNeededForLate)) {
-            return ("bg-vehicle-late ");
+            return ("bg-vehicle-early ");
         }
         else if (parseTime(vehicle.time_difference) < (parseTime(TimeDifferenceNeededForLate))) {
-
+            return ("bg-vehicle-late ");
         }
         else {
             return ("bg-vehicle-online ");
@@ -167,6 +170,28 @@ const IconBackground = (vehicle) => {
     }
     else {
         return ("bg-vehicle-online ");
+    }
+}
+
+const MayShowInfo = (vehicle) => {
+    const state = parseTime(vehicle.time_difference);
+    if (state > parseTime(TimeDifferenceNeededForLate)) {
+        let meska = (vehicle) => {
+            return (
+                <span className="meskanie">
+                    {vehicle.time_difference}
+                </span>
+            );
+        }
+    }
+    else if (state < (parseTime(TimeDifferenceNeededForLate))) {
+        let skoro = (vehicle) => {
+            return (
+                <span className="skoro">
+                    {vehicle.time_difference}
+                </span>
+            );
+        }
     }
 }
 
@@ -179,7 +204,9 @@ const vehicleInformation = (vehicle) => {
                     {vehicle.line_name +" "+ vehicle.current_stop_name}
                 </div>
                 <div className="">
-                    {}
+                    {
+                        MayShowInfo(vehicle)
+                    }
                 </div>
             </>
         );
