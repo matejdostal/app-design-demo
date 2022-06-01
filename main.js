@@ -122,10 +122,16 @@ const typeBadge = (vehicle) => {
  * @returns {int} the time in seconds
  */
 const parseTime = (timestring) => {
-    const time = timestring.match( /([0-9][0-9]:[0-9][0-9]:[0-9][0-9])/g );
+    const time = timestring.match( /(-?[0-9][0-9]:[0-9][0-9]:[0-9][0-9])/g );
     if (time !== null) {
+        const s = time.match(/[-]/);
         const g = time.toString().split(':');
-        return ((g[0]*3600) + (g[1]*60) + (g[2]));
+        if (s === null) {
+            return ((g[0]*3600) + (g[1]*60) + (g[2]));
+        }
+        else {
+            return ((g[0]*3600) + (g[1]*60) + (g[2])) * (-1);
+        }
     }
 
     return 1;
@@ -152,7 +158,7 @@ const IconBackground = (vehicle) => {
         if (parseTime(vehicle.time_difference) > parseTime(TimeDifferenceNeededForLate)) {
             return ("bg-vehicle-late ");
         }
-        else if (parseTime(vehicle.time_difference) < 0 - (parseTime(TimeDifferenceNeededForLate))) {
+        else if (parseTime(vehicle.time_difference) < (parseTime(TimeDifferenceNeededForLate))) {
 
         }
         else {
