@@ -81,7 +81,7 @@ const ConatinerData = () => {
             {vehicles.map((vehicle) => {
                 const fDate = formatDate(vehicle.state_dtime);
                 return (
-                    <div key={vehicle.vehicle_number} className="flex-d align-items-center p-3 my-3 item">
+                    <div key={vehicle.vehicle_number} className="d-flex align-items-center p-3 my-3 item">
                         <div className={
                             IconBackground(vehicle) +
                             " justfiy-content-start vehicle-number"
