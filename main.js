@@ -93,27 +93,19 @@ const iconType = (vehicle_type) =>{
 }
 
 const typeBadge = (vehicle) => {
-    const transType = translateType(vehicle.vehicle_type);
-    if (vehicle.service_number !== null) {
-        return (
-            <div className={"vehicle-type bg-success text-dark bg-opacity-10 border border-1 shadow-md rounded-2 px-1 fs-6 text-nowrap"}>
-                {iconType(transType)}
-                <span className="vehicle-type-text">
-                {
-                    vehicle.service_number + 
-                    " - " + 
-                    transType
-                }
-                </span>
-            </div>
-        );
+    const transType = translateType(vehicle.vehicle_type)
+    let text;
+    if (vehicle.line_name === null) {
+        text = "Nedostupný";
     }
     else {
-        return (
-            <div className={"vehicle-type bg-success text-dark bg-opacity-10 border border-1 shadow-md rounded-2 px-1 fs-6 text-nowrap"}>
-                {iconType(transType)}
-                <span className="vehicle-type-text">
-                {
+        text = vehicle.line_name + " : " + vehicle.current_stop_name;
+    }
+    return (
+        <div className={"vehicle-type bg-success text-dark bg-opacity-10 border border-1 shadow-md rounded-2 px-1 fs-6 text-wrap"}>
+            {iconType(transType)}
+            <span className="vehicle-type-text">
+            {
                     vehicle.service_number + 
                     " - " + 
                     transType
@@ -186,13 +178,17 @@ const ConatinerData = () => {
         <div className="container-fluid dataroot ">
             {vehicles.map((vehicle) => {
                 //const fDate = formatDate(vehicle.state_dtime);
+                let dostupny = "";
+                if (vehicle.line_name === null) {
+                    dostupny = " bg-unavailable ";
+                }
                 return (
-                    <a id={vehicle.vehicle_number} key={vehicle.vehicle_number} href={"#" + vehicle.vehicle_number} className="d-flex border border-1 shadow-sm rounded-3 align-items-center m-2 p-1 item">
-                        <div className="fs-4 m-2 me-3 vehicle-number">
-                            <a className={
+                    <a id={vehicle.vehicle_number} key={vehicle.vehicle_number} href={"#" + vehicle.vehicle_number} className={"d-flex border border-1 shadow-sm rounded-3 align-items-center m-2 my-3 p-3 item" + dostupny}>
+                        <div className="p-2 m-2 me-3 vehicle-number">
+                            <div className={
                                 IconBackground(vehicle) + 
-                                "badge text-center vehicle-number-text "
-                            } >{vehicle.vehicle_number}</a>
+                                "badge text-center vehicle-number-text fs-6 "
+                            } >{vehicle.vehicle_number}</div>
                         </div>
                         <div className=" flex-fill item-info">
                             <div className="">
@@ -200,7 +196,7 @@ const ConatinerData = () => {
                                 <div className="">
                                 </div>
                             </div>
-                            <div className="">
+                            <div className="flex-grow-1">
                                 {vehicleInformation(vehicle)}
                             </div>
                         </div>
