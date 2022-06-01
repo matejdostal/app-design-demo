@@ -1,8 +1,11 @@
 const { useState, useEffect } = React;
 
+/****************************************************************************************/
+/*     Header - just for looks, so I know what it will probably look like normally      */
+/****************************************************************************************/
 const CreateHeader = () => {
     return (
-        <header>
+        <header className="overflow-hidden">
             <nav className="bg-dark text-white navbar navbar-expand-lg">
                 <div className="container-fluid justify-content-center">
                     <div className="searchbox p-2 nav-item">
@@ -30,8 +33,95 @@ const CheckIfHeaderVisible = (prevValue) => {
     }
 }
 
+/****************************************************************************************/
+/*                                  CONSTANTS TO CHANGE                                 */
+/****************************************************************************************/
+const VehicleTypes = {
+    bus: "Autobus",
+    trolleybus: "Trolejbus",
+    train: "Vlak",
+    unknown: "Neznámy"
+};
+
+const VehicleTypesIcons = {
+    bus: "icons/bus.svg",
+    trolleybus: "icons/trolley.svg",
+    train: "icons/train.svg",
+    unknown: "icons/unknown.svg"
+};
+
+const translateType = (vehicle_type) => {
+    switch (vehicle_type) {
+        case "bus":
+            return VehicleTypes.bus;
+        case "trolleybus":
+            return VehicleTypes.trolleybus;
+        case "train":
+            return VehicleTypes.train;
+        default:
+            return VehicleTypes.unknown;
+    }
+}
+
+/***************************************************************************************/
+/*                                                                                     */
+/***************************************************************************************/
+
 const formatDate = (date) => {
-    return ("| " + date + " |");
+    return (date);
+}
+
+const iconType = (vehicle_type) =>{
+    let icon = "";
+    switch (vehicle_type) {
+        case VehicleTypes.bus:
+            icon = VehicleTypesIcons.bus;
+            break;
+        case VehicleTypes.trolleybus:
+            icon = VehicleTypesIcons.trolleybus;
+            break;
+        case VehicleTypes.train:
+            icon = VehicleTypesIcons.train;
+            break;
+        default:
+            icon = VehicleTypesIcons.unknown;
+            break;
+    }
+    return (
+        <img className="vehicle-icon mx-1" src={icon}/>
+    );
+}
+
+const typeBadge = (vehicle) => {
+    const transType = translateType(vehicle.vehicle_type);
+    if (vehicle.service_number !== null) {
+        return (
+            <div className={"vehicle-type bg-success text-dark bg-opacity-10 border border-1 shadow-md rounded-2 px-1 fs-6 text-nowrap"}>
+                {iconType(transType)}
+                <span className="vehicle-type-text">
+                {
+                    vehicle.service_number + 
+                    " - " + 
+                    transType
+                }
+                </span>
+            </div>
+        );
+    }
+    else {
+        return (
+            <div className={"vehicle-type bg-success text-dark bg-opacity-10 border border-1 shadow-md rounded-2 px-1 fs-6 text-nowrap"}>
+                {iconType(transType)}
+                <span className="vehicle-type-text">
+                {
+                    vehicle.service_number + 
+                    " - " + 
+                    transType
+                }
+                </span>
+            </div>
+        );
+    }
 }
 
 const ParseTime = (timestring) => {
@@ -46,7 +136,7 @@ const ParseTime = (timestring) => {
 const IconBackground = (vehicle) => {
     const isOnline = vehicle.online;
 
-    if (vehicle.errors !== null && vehicle.errors.lenght > 0) {
+    if (vehicle.errors != null && vehicle.errors.lenght > 0) {
         return ("bg-vehicle-error ");
     }
     else if (isOnline == false) {
@@ -65,6 +155,22 @@ const IconBackground = (vehicle) => {
     }
 }
 
+const vehicleInformation = (vehicle) => {
+    if (vehicle.service_number !== null)
+    {
+        return (
+            <>
+                <div className="">
+                    {vehicle.line_name +" "+ vehicle.current_stop_name}
+                </div>
+                <div className="">
+                    {}
+                </div>
+            </>
+        );
+    }
+}
+
 const ConatinerData = () => {
     const [vehicles, setVehicles] = useState([]);
 
@@ -77,24 +183,28 @@ const ConatinerData = () => {
             });
     }, []);
     return (
-        <div className="container dataroot">
+        <div className="container-fluid dataroot ">
             {vehicles.map((vehicle) => {
-                const fDate = formatDate(vehicle.state_dtime);
+                //const fDate = formatDate(vehicle.state_dtime);
                 return (
-                    <div key={vehicle.vehicle_number} className="d-flex align-items-center my-3 p-3 row item">
-                        <div className="justfiy-content-start vehicle-number">
+                    <a id={vehicle.vehicle_number} key={vehicle.vehicle_number} href={"#" + vehicle.vehicle_number} className="d-flex border border-1 shadow-sm rounded-3 align-items-center m-2 p-1 item">
+                        <div className="fs-4 m-2 me-3 vehicle-number">
                             <a className={
                                 IconBackground(vehicle) + 
                                 "badge text-center vehicle-number-text "
-                            } href="#">{vehicle.vehicle_number}</a>
+                            } >{vehicle.vehicle_number}</a>
                         </div>
-                        <div className="flex-grow-1 item-info">
-                            <div className="row ">
-                                <div className="">{vehicle.current_stop_name}</div>
-                                <div>{fDate}</div>
+                        <div className=" flex-fill item-info">
+                            <div className="">
+                                {typeBadge(vehicle)}
+                                <div className="">
+                                </div>
+                            </div>
+                            <div className="">
+                                {vehicleInformation(vehicle)}
                             </div>
                         </div>
-                    </div>
+                    </a>
                 );
         })}
        </div>

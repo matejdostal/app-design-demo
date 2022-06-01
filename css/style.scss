@@ -1,58 +1,72 @@
-.container {
-    padding: 10px;
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.item {
-    border: 1px solid #000;
-    margin-bottom: 10px;
-    padding: 20px;
-}
-
-.vehicle-number {
-    font-weight: bold;
-    &-circle {
-        width: 32px;
-        height: 32px;
-    }
-}
-
 header {
     width: 100%;
     top: 0;
     transition: top 0.3s;
     padding: 0;
 }
+
 .searchbox {
     width: 700px;
 }
 
-.vehicle-number-text {
+.container-fluid {
+    padding: 10px;
+    font-family: "Segoe UI", "Tahoma", "Geneva", "Verdana", "sans-serif";
+}
+
+.item {
     text-decoration: none;
-    text-shadow: 1px;
-    color: #000;
-    &:hover {
-        color: aquamarine;
+    color: inherit;
+    cursor: pointer;
+    &:hover, &:focus, &:focus-visible{
+        transition: 0.1s;
+        background-color: rgb(252, 252, 241);
+        color: inherit;
+        box-shadow: .250rem .950rem .50rem rgba(0,0,0,.075), -.250rem -.120rem .50rem rgba(0,0,0,.075) !important;
+    }
+}
+
+.vehicle {
+    &-number {
+        width: fit-content;
+        &-text {
+            text-decoration: none;
+            text-shadow: 1px;
+            color: #000;
+        }
+    }
+    &-type {
+        display: inline-block;
+        cursor: inherit;
+    }
+    &-icon {
+        width: 12px;
+        height: 12px;
     }
 }
 
 .dataroot {
     top: 0.4rem;
 }
+
 // existuje aj cez text-bg-* bootstrap class
 // ale radsej som implementoval nove, keby
 // existovala funkcia ne zmenu 
 .bg-vehicle {
-    width: 32px;
-    height: 32px;
     &-online {
         background-color: aquamarine;
         border-color: rgb(0, 0, 0);
+        &:hover {
+            color: rgb(83, 83, 83);
+        }
     }
     &-offline {
         background-color: rgb(73, 73, 73);
         border-color: rgb(255, 255, 255);
         color: rgb(255, 255, 255);
+        &:hover {
+            color: rgb(219, 219, 219);
+        }
     }
     &-error {
         background-color: red;
