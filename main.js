@@ -63,6 +63,8 @@ const translateType = (vehicle_type) => {
     }
 }
 
+const TimeDifferenceNeededForLate = "00:01:00";
+
 /***************************************************************************************/
 /*                                                                                     */
 /***************************************************************************************/
@@ -72,7 +74,7 @@ const formatDate = (date) => {
 }
 
 const iconType = (vehicle_type) =>{
-    let icon = "";
+    let icon;
     switch (vehicle_type) {
         case VehicleTypes.bus:
             icon = VehicleTypesIcons.bus;
@@ -106,37 +108,52 @@ const typeBadge = (vehicle) => {
             {iconType(transType)}
             <span className="vehicle-type-text">
             {
-                    vehicle.service_number + 
-                    " - " + 
-                    transType
-                }
-                </span>
-            </div>
-        );
+                text
+            }
+            </span>
+        </div>
+    );
+}
+/**
+ * A function that parses an "HH:mm:ss" formatted
+ * time given in string into an integer that represents
+ * the sum of the given time in seconds.
+ * @param {string} timestring 
+ * @returns {int} the time in seconds
+ */
+const parseTime = (timestring) => {
+    const time = timestring.match( /([0-9][0-9]:[0-9][0-9]:[0-9][0-9])/g );
+    if (time !== null) {
+        const g = time.toString().split(':');
+        return ((g[0]*3600) + (g[1]*60) + (g[2]));
     }
+
+    return 1;
 }
 
-const ParseTime = (timestring) => {
-    const d = new Date(timestring);
-    let h = d.getHours();
-    let m = d.getMinutes();
-    let s = d.getSeconds();
-
-    return ((h*3600) + (m*60) + (s));
-}
-
+/**
+ * Returns background color type (for `class` html tag).  
+ * 
+ * The colors for the particular string are beforehand declared in CSS.
+ * @param {Object} vehicle 
+ * @returns {string}  background type
+ */
 const IconBackground = (vehicle) => {
     const isOnline = vehicle.online;
 
-    if (vehicle.errors != null && vehicle.errors.lenght > 0) {
+    // I don't know why this doesn't work, it should theoretically work
+    if ((vehicle.errors != null) && vehicle.errors[0] !== undefined) {
         return ("bg-vehicle-error ");
     }
     else if (isOnline == false) {
         return ("bg-vehicle-offline ");
     }
     else if (isOnline == true && vehicle.time_difference !== null) {
-        if (ParseTime(vehicle.time_difference) > ParseTime("00:01:00")) {
+        if (parseTime(vehicle.time_difference) > parseTime(TimeDifferenceNeededForLate)) {
             return ("bg-vehicle-late ");
+        }
+        else if (parseTime(vehicle.time_difference) < 0 - (parseTime(TimeDifferenceNeededForLate))) {
+
         }
         else {
             return ("bg-vehicle-online ");

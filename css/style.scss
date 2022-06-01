@@ -22,7 +22,14 @@ header {
         transition: 0.1s;
         background-color: rgb(252, 252, 241);
         color: inherit;
-        box-shadow: .250rem .950rem .50rem rgba(0,0,0,.075), -.250rem -.120rem .50rem rgba(0,0,0,.075) !important;
+        box-shadow: .250rem .750rem .50rem rgba(0,0,0,.075), -.250rem -.120rem .50rem rgba(0,0,0,.075) !important;
+    }
+}
+
+.bg-unavailable {
+    background-color: rgba(228, 226, 226, 0.774);
+    &:hover, &:focus, &:focus-visible {
+        background-color: rgba(192, 191, 191, 0.774);
     }
 }
 
