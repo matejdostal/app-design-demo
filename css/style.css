@@ -75,5 +75,8 @@ header {
 .bg-vehicle-late {
   background-color: orange;
 }
+.bg-vehicle-early {
+  background-color: yellow;
+}
 
 /*# sourceMappingURL=style.css.map */
