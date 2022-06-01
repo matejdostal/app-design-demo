@@ -5,7 +5,7 @@ const CreateHeader = () => {
         <header>
             <nav className="bg-dark text-white navbar navbar-expand-lg">
                 <div className="container-fluid justify-content-center">
-                    <div className="searchbox p-2 col-lg nav-item">
+                    <div className="searchbox p-2 nav-item">
                         <div class="form-outline" id="search-auto">
                             <input id="search-input" type="search" class="form-control" placeholder="Hladať" />
                         </div>
@@ -81,16 +81,14 @@ const ConatinerData = () => {
             {vehicles.map((vehicle) => {
                 const fDate = formatDate(vehicle.state_dtime);
                 return (
-                    <div key={vehicle.vehicle_number} className="d-flex align-items-center p-3 my-3 item">
-                        <div className={
-                            IconBackground(vehicle) +
-                            " justfiy-content-start vehicle-number"
-                            }>
-                            <div className="rounded-circle bd-placeholder vehicle-number-circle">
-                                <a className="text-center vehicle-number-text" href="#">{vehicle.vehicle_number}</a>
-                            </div>
+                    <div key={vehicle.vehicle_number} className="d-flex align-items-center my-3 p-3 row item">
+                        <div className="justfiy-content-start vehicle-number">
+                            <a className={
+                                IconBackground(vehicle) + 
+                                "badge text-center vehicle-number-text "
+                            } href="#">{vehicle.vehicle_number}</a>
                         </div>
-                        <div className="item-info">
+                        <div className="flex-grow-1 item-info">
                             <div className="row ">
                                 <div className="">{vehicle.current_stop_name}</div>
                                 <div>{fDate}</div>

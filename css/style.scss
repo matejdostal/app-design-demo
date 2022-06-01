@@ -23,6 +23,9 @@ header {
     transition: top 0.3s;
     padding: 0;
 }
+.searchbox {
+    width: 700px;
+}
 
 .vehicle-number-text {
     text-decoration: none;
@@ -36,15 +39,20 @@ header {
 .dataroot {
     top: 0.4rem;
 }
-
+// existuje aj cez text-bg-* bootstrap class
+// ale radsej som implementoval nove, keby
+// existovala funkcia ne zmenu 
 .bg-vehicle {
     width: 32px;
     height: 32px;
     &-online {
         background-color: aquamarine;
+        border-color: rgb(0, 0, 0);
     }
     &-offline {
-        background-color: grey;
+        background-color: rgb(73, 73, 73);
+        border-color: rgb(255, 255, 255);
+        color: rgb(255, 255, 255);
     }
     &-error {
         background-color: red;

@@ -24,6 +24,10 @@ header {
   padding: 0;
 }
 
+.searchbox {
+  width: 700px;
+}
+
 .vehicle-number-text {
   text-decoration: none;
   text-shadow: 1px;
@@ -43,9 +47,12 @@ header {
 }
 .bg-vehicle-online {
   background-color: aquamarine;
+  border-color: rgb(0, 0, 0);
 }
 .bg-vehicle-offline {
-  background-color: grey;
+  background-color: rgb(73, 73, 73);
+  border-color: rgb(255, 255, 255);
+  color: rgb(255, 255, 255);
 }
 .bg-vehicle-error {
   background-color: red;
