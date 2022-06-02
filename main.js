@@ -108,18 +108,57 @@ const iconType = (vehicle_type) =>{
     );
 }
 
+const tripIndicator = (tripstatus) => {
+    let st;
+    switch (tripstatus) {
+        case tripStateValue.on_the_way:
+            st= " trip-on-way ";
+            break;
+        case tripStateValue.idle:
+            st = " trip-idle ";
+            break;
+        case tripStateValue.arrival:
+            st = " trip-arrival ";
+            break;
+        case tripStateValue.departure:
+            st = " trip-departure ";
+            break;
+        default:
+            st = " trip-null "
+    }
+    return (
+        <span className="position-relative">
+            <div className={"rounded-circle position-absolute top-0 start-100 translate-middle border trip-statusindicator p-1 align-items-end" + st}/>
+        </span>
+    );
+}
+
+const vehLineBadge = (vehline) => {
+    return (
+        <span className="px-1 border border-1 vehicle-line-badge-bus">
+            <span className="vehicle-line text-white ">
+                {vehline}
+            </span>
+        </span>
+    );
+};
+
 const typeBadge = (vehicle) => {
+    
     const transType = translateType(vehicle.vehicle_type)
-    let text, extraClasses;
+    let text, state;
     switch (vehicle.trip_status) {
         case tripStateValue.on_the_way:
             text = (vehicle) => {
             
                 return (
                     <>
-                        <span className="flex-grow-1">
+                        <span className="">
                             {
-                                vehicle.line_name + " : " + 
+                                vehLineBadge(vehicle.line_name)
+                            }
+                            {
+                                " : " + 
                                 vehicle.current_stop_name + " 🠖 " + 
                                 vehicle.destination_stop_name
                             }
@@ -127,15 +166,18 @@ const typeBadge = (vehicle) => {
                     </>
                 );
             };
-            extraClasses = " trip-on-way ";
+            state = tripStateValue.on_the_way;
             break;
         case tripStateValue.arrival:
             text = (vehicle) => {
                 return (
                     <>
-                        <span className="flex-grow-1">
+                        <span className="">
                             {
-                                vehicle.line_name + " : " + vehicle.current_stop_name + " 🠖 " + vehicle.destination_stop_name
+                                vehLineBadge(vehicle.line_name)
+                            }
+                            {
+                                " : " + vehicle.current_stop_name + " 🠖 " + vehicle.destination_stop_name
                             }
                         </span>
                         <div className="vehicle-trip-arrival vehicle-trip-icon flex-shrink-0">
@@ -144,7 +186,7 @@ const typeBadge = (vehicle) => {
                     </>
                 );
             }
-            extraClasses = " trip-arrival ";
+            state = tripStateValue.arrival;
             break;
         case tripStateValue.departure:
             text = (vehicle) => {
@@ -152,7 +194,10 @@ const typeBadge = (vehicle) => {
                     <>
                         <span className="flex-grow-1">
                             {
-                                vehicle.line_name + " : " + vehicle.current_stop_name + " 🠖 " + "NEXT_STOP"
+                                vehLineBadge(vehicle.line_name)
+                            }
+                            {
+                                " : " + vehicle.current_stop_name + " 🠖 " + "NEXT_STOP"
                             }
                         </span>
                         <div className="vehicle-trip-departure vehicle-trip-icon flex-shrink-0">
@@ -161,7 +206,7 @@ const typeBadge = (vehicle) => {
                     </>
                 );
             }
-            extraClasses = " trip-departure ";
+            state = tripStateValue.departure;
             break;
         case tripStateValue.idle:
             text = (vehicle) => {
@@ -169,7 +214,10 @@ const typeBadge = (vehicle) => {
                     <>
                         <span className="flex-grow-1">
                             {
-                                vehicle.line_name + " : " + vehicle.current_stop_name
+                                vehLineBadge(vehicle.line_name)
+                            }
+                            {
+                                " : " + vehicle.current_stop_name
                             }
                         </span>
                         <div className="vehicle-trip-idle vehicle-trip-icon flex-shrink-0">
@@ -178,38 +226,32 @@ const typeBadge = (vehicle) => {
                     </>
                 );
             }
-            extraClasses = " trip-idle ";
+            state = tripStateValue.idle;
             break;
         default:
             text = (vehicle) => {
                 return (
-                    <>
-                        <span className="flex-grow-1">
-                            {
-                                "Nie je pripojeny do databazy"
-                            }
-                        </span>
-                        <div className="vehicle-trip-null vehicle-trip-icon flex-shrink-0">
-                            <img src="icons/unknown-trip-state.svg"/>
-                        </div>
-                    </>
+                    null
                 );
             }
-            extraClasses = " trip-null ";
+            state = tripStateValue.none;
             break;
     }
 
     return (
-        <div className={"vehicle-link-status d-flex bg-opacity-10 border border-1 shadow-sm rounded-3 px-1 mx-1 fs-6 text-wrap" + extraClasses}>
-            {
-                iconType(transType)
-            }
-            <div className="vehicle-type-text flex-grow-1 d-flex">
-            {
-                text(vehicle)
-            }
+        <>
+            <div className={"vehicle-link-status d-flex flex-cloumn bg-opacity-10 border border-1 shadow-sm rounded-3 px-1 mx-1 fs-6 text-wrap"}>
+                <div className="vehicle-trip-type d-flex flex-fill">
+                {
+                    text(vehicle)
+                }
+                </div>
+                {
+                    tripIndicator(state)
+                }
             </div>
-        </div>
+            
+        </>
     );
 }
 /**
@@ -324,12 +366,13 @@ const timeDifferenceBadge = (vehicle) => {
             txt = (stateValue.meskanie + vehicle.time_difference);
             break;
         case 2:
-            m = "hidden ";
+            m = " hidden ";
             txt = ""
-            break;
+            return;
     }
+
     return (
-        <div className={m + "badge d-flex justify-content-end"}>         
+        <div className={"border border-1 rounded-2 d-flex justify-content-end " +m}>         
             <span className="td-text">{
                 txt
             }
@@ -380,7 +423,7 @@ const ConatinerData = () => {
                 }
                 return (
                     <a id={vehicle.vehicle_number} key={vehicle.vehicle_number} href={"#" + vehicle.vehicle_number} className={"d-flex border border-1 shadow-sm rounded-3 align-items-center m-2 my-3 p-3 item" + dostupny}>
-                        <div className="p-2 m-2 me-3 vehicle-number">
+                        <div className="me-2 vehicle-number">
                             <div className={
                                 IconBackground(vehicle) + 
                                 "badge text-center vehicle-number-text fs-6 "
@@ -388,11 +431,11 @@ const ConatinerData = () => {
                         </div>
                         <div className=" flex-fill item-info">
                             <div className="">
-                                {typeBadge(vehicle)}
-                                <div className="">
-                                </div>
+                                {
+                                    typeBadge(vehicle)
+                                }
                             </div>
-                            <div className="flex-grow-1">
+                            <div className="flex-grow-1 d-flex flex-column p-1">
                                 {vehicleInformation(vehicle)}
                             </div>
                         </div>

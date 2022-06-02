@@ -55,17 +55,15 @@ header {
             width: 16px;
             height: 16px;
         }
-        &-null {
-            background-color: rgb(212, 212, 212);
-        }
-        &-idle {
-            background-color: rgb(252, 190, 119);
-        }
-        &-departure {
-            background-color: rgb(243, 255, 139);
-        }
-        &-on-way {
-            background-color: rgb(124, 252, 156);
+    }
+    &-line {
+        
+        &-badge {
+            border-radius: .3rem;
+            &-bus {
+                @extend .vehicle-line-badge;
+                background-color: rgb(78, 139, 253) !important;
+            }
         }
     }
 }
@@ -100,14 +98,35 @@ header {
 }
 
 .trip {
-    &-null {
+    &-statusindicator {
+        border-radius: 1px;
+        border-color: rgb(131, 131, 131) !important;
+        width: 18px;
+        height: 18px;
+    }
 
+    &-null {
+        background-color: rgb(141, 141, 141);
+    }
+    &-idle {
+        background-color: rgb(255, 164, 59);
+    }
+    &-departure {
+        background-color: rgb(236, 255, 66);
+    }
+    &-arrival {
+        background-color: rgb(239, 93, 255);
+    }
+    &-on-way {
+        background-color: rgb(125, 255, 155);
     }
 }
 
 .td {
     &-meskanie, &-nadbieha {
-
+        width: fit-content;
+        padding-left: 0.150rem;
+        padding-right: 00.150rem;
     }
     &-text {
         color: #000;

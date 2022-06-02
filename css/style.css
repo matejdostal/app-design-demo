@@ -53,17 +53,11 @@ header {
   width: 16px;
   height: 16px;
 }
-.vehicle-trip-null {
-  background-color: rgb(212, 212, 212);
+.vehicle-line-badge, .vehicle-line-badge-bus {
+  border-radius: 0.3rem;
 }
-.vehicle-trip-idle {
-  background-color: rgb(252, 190, 119);
-}
-.vehicle-trip-departure {
-  background-color: rgb(243, 255, 139);
-}
-.vehicle-trip-on-way {
-  background-color: rgb(124, 252, 156);
+.vehicle-line-badge-bus {
+  background-color: rgb(78, 139, 253) !important;
 }
 
 .dataroot {
@@ -90,6 +84,33 @@ header {
   color: rgb(233, 233, 233);
 }
 
+.trip-statusindicator {
+  border-radius: 1px;
+  border-color: rgb(131, 131, 131) !important;
+  width: 18px;
+  height: 18px;
+}
+.trip-null {
+  background-color: rgb(141, 141, 141);
+}
+.trip-idle {
+  background-color: rgb(255, 164, 59);
+}
+.trip-departure {
+  background-color: rgb(236, 255, 66);
+}
+.trip-arrival {
+  background-color: rgb(239, 93, 255);
+}
+.trip-on-way {
+  background-color: rgb(125, 255, 155);
+}
+
+.td-meskanie, .td-nadbieha {
+  width: fit-content;
+  padding-left: 0.15rem;
+  padding-right: 0.15rem;
+}
 .td-text {
   color: #000;
 }
