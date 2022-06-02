@@ -24,6 +24,10 @@ header {
         color: inherit;
         box-shadow: .250rem .750rem .50rem rgba(0,0,0,.075), -.250rem -.120rem .50rem rgba(0,0,0,.075) !important;
     }
+    &:focus, &:focus-visible {
+        border-color: aqua;
+        border-width: 4px;
+    }
 }
 
 .bg-unavailable {
@@ -41,10 +45,6 @@ header {
             text-shadow: 1px;
             color: #000;
         }
-    }
-    &-type {
-        display: inline-block;
-        cursor: inherit;
     }
     &-icon {
         width: 18px;
@@ -78,27 +78,26 @@ header {
 // ale radsej som implementoval nove, keby
 // existovala funkcia ne zmenu 
 .bg-vehicle {
-    &-online {
+    &-okay {
         background-color: aquamarine;
         border-color: rgb(0, 0, 0);
+        color: rgb(68, 68, 68);
         &:hover {
-            color: rgb(83, 83, 83);
+            color: rgb(37, 37, 37);
         }
-    }
-    &-offline {
-        background-color: rgb(73, 73, 73);
-        border-color: rgb(255, 255, 255);
-        color: rgb(255, 255, 255);
-        &:hover {
-            color: rgb(219, 219, 219);
-        }
-    }
-    &-error {
-        background-color: red;
     }
     &-late {
         background-color: orange;
+        &:hover {
+            color: rgb(0, 0, 0);
+        }
+        color: rgb(49, 49, 49);
     }
+    &-early {
+        background-color: red;
+        color:rgb(233, 233, 233);
+    }
+}
 
 .trip {
     &-null {

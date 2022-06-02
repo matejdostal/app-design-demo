@@ -216,8 +216,8 @@ const typeBadge = (vehicle) => {
  * A function that parses an "HH:mm:ss" formatted
  * time given in string into an integer that represents
  * the sum of the given time in seconds.
- * @param {string} timestring 
- * @returns {int} the time in seconds
+ * @param {String} timestring 
+ * @returns {Int} the time in seconds
  */
 const parseTime = (timestring) => {
     if (timestring === undefined || timestring === null) return undefined;
@@ -226,8 +226,12 @@ const parseTime = (timestring) => {
         // a timestring containing 2 times is not possible/ it's neglibable to just not parse them
         if (time.length > 1) return ErrorEvent;
 
-        const s = time.toString().match(/[-]/g);
+        const s = time.toString().match(/[-]/g); // find negative symbol
         const g = time.toString().split(':');
+        g.forEach( (element, index, parsed) => {
+            parsed[index] = parseInt(element);
+        });
+
         if (s === null) {
             return ((g[0]*3600) + (g[1]*60) + (g[2]));
         }
@@ -236,7 +240,55 @@ const parseTime = (timestring) => {
         }
     }
 
-    return 1;
+    return undefined;
+}
+/**
+ * Parses the given string and returns the absolute value of `timestring` if `timestring` is a time given in the format of **HH:mm:ss**
+ * @param {String} timestring 
+ * @returns {String} `String`
+ */
+const timeAbsString = (timestring) => {
+    if (timestring === undefined || timestring === null) return undefined;
+
+    let time = timestring.match( /(-?[0-9][0-9]:[0-9][0-9]:[0-9][0-9])/g );
+    if (time !== null) {
+        if (time.length > 1) return ErrorEvent;
+
+        const s = time.toString().match(/[-]/g); // find negative symbol
+        
+        if (s === null) {
+            return time.toString();
+        }
+        else {
+            // znamienko je s[0]
+            console.log(s[0] + " www " + s[1])
+            return s[1];
+        }
+    }
+    return undefined;
+}
+
+/**
+ * **3 possible values**:  
+ * `0` - `early`  
+ * `1` - `late`  
+ * `2` - `neither`
+ * @param {Vehicle} vehicle 
+ * @returns {Int} `seconds`
+ */
+const timeDifference = (vehicle) => {
+    const td = parseTime(TimeDifferenceNeededForLate);
+    const time_difference = parseTime(vehicle.time_difference);
+    
+    if (time_difference > 0 && time_difference > td) {
+        return 0;
+    }
+    else if (time_difference < 0 && time_difference < -td) {
+        return 1;
+    }
+    else {
+        return 2;
+    }
 }
 
 /**
@@ -244,55 +296,46 @@ const parseTime = (timestring) => {
  * 
  * The colors for the particular string are beforehand declared in CSS.
  * @param {Object} vehicle 
- * @returns {string}  background type
+ * @returns {String} `string`
  */
 const IconBackground = (vehicle) => {
     const isOnline = vehicle.online;
 
-    // I don't know why this doesn't work, it should theoretically work
-    if ((vehicle.errors != null) && vehicle.errors[0] !== undefined) {
-        return ("bg-vehicle-error ");
-    }
-    else if (isOnline == false) {
-        return ("bg-vehicle-offline ");
-    }
-    else if (isOnline == true && vehicle.time_difference !== null) {
-        // TODO: not working properly, at least in my head
-        if (parseTime(vehicle.time_difference) > parseTime(TimeDifferenceNeededForLate)) {
+    switch (timeDifference(vehicle)) {
+        case 0:
             return ("bg-vehicle-early ");
-        }
-        else if (parseTime(vehicle.time_difference) < (parseTime(TimeDifferenceNeededForLate))) {
+        case 1:
             return ("bg-vehicle-late ");
-        }
-        else {
-            return ("bg-vehicle-online ");
-        }
-    }
-    else {
-        return ("bg-vehicle-online ");
+        case 2:
+            return ("bg-vehicle-okay ");
     }
 }
 
-const MayShowInfo = (vehicle) => {
-    const state = parseTime(vehicle.time_difference);
-    if (state > parseTime(TimeDifferenceNeededForLate)) {
-        let meska = (vehicle) => {
-            return (
-                <span className="meskanie">
-                    {vehicle.time_difference}
-                </span>
-            );
-        }
+const timeDifferenceBadge = (vehicle) => {
+
+    let m,txt;
+    switch (timeDifference(vehicle)) {
+        case 0:
+            m = "td-nadbieha ";
+            txt = (stateValue.nadbieha + vehicle.time_difference);
+            break;
+        case 1:
+            m = "td-meskanie ";
+            txt = (stateValue.meskanie + vehicle.time_difference);
+            break;
+        case 2:
+            m = "hidden ";
+            txt = ""
+            break;
     }
-    else if (state < (parseTime(TimeDifferenceNeededForLate))) {
-        let skoro = (vehicle) => {
-            return (
-                <span className="skoro">
-                    {vehicle.time_difference}
-                </span>
-            );
-        }
-    }
+    return (
+        <div className={m + "badge d-flex justify-content-end"}>         
+            <span className="td-text">{
+                txt
+            }
+            </span>
+        </div>
+    );
 }
 
 const vehicleInformation = (vehicle) => {
@@ -301,13 +344,13 @@ const vehicleInformation = (vehicle) => {
         return (
             <>
                 <div className="">
-                    {vehicle.line_name +" "+ vehicle.current_stop_name}
-                </div>
-                <div className="">
                     {
-                        MayShowInfo(vehicle)
+                        vehicle.line_name +" "+ vehicle.current_stop_name
                     }
                 </div>
+                {
+                    timeDifferenceBadge(vehicle)
+                }
             </>
         );
     }
@@ -331,6 +374,9 @@ const ConatinerData = () => {
                 let dostupny = "";
                 if (vehicle.line_name === null) {
                     dostupny = " bg-unavailable ";
+                }
+                else if (vehicle.online === false) {
+                    dostupny = " bg-offline "
                 }
                 return (
                     <a id={vehicle.vehicle_number} key={vehicle.vehicle_number} href={"#" + vehicle.vehicle_number} className={"d-flex border border-1 shadow-sm rounded-3 align-items-center m-2 my-3 p-3 item" + dostupny}>
@@ -366,4 +412,7 @@ const App = () => {
     );
 }
 
-ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+const header = ReactDOM.createRoot(document.getElementById("header-part"))
+const root = ReactDOM.createRoot(document.getElementById("root"));
+header.render(<CreateHeader />)
+root.render(<ConatinerData />)
