@@ -10,19 +10,21 @@ header {
 }
 
 .container-fluid {
-    padding: 10px;
+    width: 100%;
     font-family: "Segoe UI", "Tahoma", "Geneva", "Verdana", "sans-serif";
+    overflow: hidden !important;
 }
 
 .item {
+    transition: all 0.5s;
     text-decoration: none;
     color: inherit;
     cursor: pointer;
     &:hover, &:focus, &:focus-visible{
-        transition: 0.1s;
+        transition: 0.2s;
         background-color: rgb(252, 252, 241);
         color: inherit;
-        box-shadow: .250rem .750rem .50rem rgba(0,0,0,.075), -.250rem -.120rem .50rem rgba(0,0,0,.075) !important;
+        box-shadow: .250rem .750rem .80rem rgba(0, 0, 0, 0.200), -.250rem -.120rem .80rem rgba(0,0,0,.120) !important;
     }
     &:focus, &:focus-visible {
         border-color: aqua;
@@ -57,6 +59,7 @@ header {
         }
     }
     &-line {
+        font-size: 16px;
         
         &-badge {
             border-radius: .3rem;

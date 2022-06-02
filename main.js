@@ -135,8 +135,8 @@ const tripIndicator = (tripstatus) => {
 
 const vehLineBadge = (vehline) => {
     return (
-        <span className="px-1 border border-1 vehicle-line-badge-bus">
-            <span className="vehicle-line text-white ">
+        <span className="px-1 vehicle-line-badge-bus">
+            <span className="vehicle-line text-white text-center">
                 {vehline}
             </span>
         </span>
@@ -162,11 +162,12 @@ const typeBadge = (vehicle) => {
                             {
                                 vehLineBadge(vehicle.line_name)
                             }
+                            <span className="ms-2">
                             {
-                                " : " + 
                                 vehicle.current_stop_name + " 🠖 " + 
                                 vehicle.destination_stop_name
                             }
+                            </span>
                         </span>
                     </>
                 );
@@ -181,9 +182,11 @@ const typeBadge = (vehicle) => {
                             {
                                 vehLineBadge(vehicle.line_name)
                             }
+                            <span className="ms-2">
                             {
-                                " : " + vehicle.current_stop_name + " 🠖 " + vehicle.destination_stop_name
+                                vehicle.current_stop_name + " 🠖 " + vehicle.destination_stop_name
                             }
+                            </span>
                         </span>
                     </>
                 );
@@ -198,9 +201,11 @@ const typeBadge = (vehicle) => {
                             {
                                 vehLineBadge(vehicle.line_name)
                             }
+                            <span className="ms-2">
                             {
-                                " : " + vehicle.current_stop_name + " 🠖 " + "NEXT_STOP"
+                                vehicle.current_stop_name + " 🠖 " + "NEXT_STOP"
                             }
+                            </span>
                         </span>
                     </>
                 );
@@ -215,9 +220,11 @@ const typeBadge = (vehicle) => {
                             {
                                 vehLineBadge(vehicle.line_name)
                             }
+                            <span className="ms-2">
                             {
-                                " : " + vehicle.current_stop_name
+                                vehicle.current_stop_name
                             }
+                            </span>
                         </span>
                     </>
                 );
