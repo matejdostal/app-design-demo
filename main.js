@@ -128,7 +128,7 @@ const tripIndicator = (tripstatus) => {
     }
     return (
         <span className="position-relative">
-            <div className={"rounded-circle position-absolute top-0 start-100 translate-middle border trip-statusindicator p-1 align-items-end" + st}/>
+            <div className={"rounded-circle position-absolute top-0 start-50 translate-middle border trip-statusindicator p-1 align-items-end" + st}/>
         </span>
     );
 }
@@ -143,6 +143,12 @@ const vehLineBadge = (vehline) => {
     );
 };
 
+/**
+ * Defines the look of the current status indicator with the type
+ * of vehicle.
+ * @param {Vehicle} vehicle 
+ * @returns {HTML} `html`
+ */
 const typeBadge = (vehicle) => {
     
     const transType = translateType(vehicle.vehicle_type)
@@ -150,7 +156,6 @@ const typeBadge = (vehicle) => {
     switch (vehicle.trip_status) {
         case tripStateValue.on_the_way:
             text = (vehicle) => {
-            
                 return (
                     <>
                         <span className="">
@@ -180,9 +185,6 @@ const typeBadge = (vehicle) => {
                                 " : " + vehicle.current_stop_name + " 🠖 " + vehicle.destination_stop_name
                             }
                         </span>
-                        <div className="vehicle-trip-arrival vehicle-trip-icon flex-shrink-0">
-                            <img src="icons/arrival.svg"/>
-                        </div>
                     </>
                 );
             }
@@ -200,9 +202,6 @@ const typeBadge = (vehicle) => {
                                 " : " + vehicle.current_stop_name + " 🠖 " + "NEXT_STOP"
                             }
                         </span>
-                        <div className="vehicle-trip-departure vehicle-trip-icon flex-shrink-0">
-                            <img src="icons/departure.svg"/>
-                        </div>
                     </>
                 );
             }
@@ -220,22 +219,13 @@ const typeBadge = (vehicle) => {
                                 " : " + vehicle.current_stop_name
                             }
                         </span>
-                        <div className="vehicle-trip-idle vehicle-trip-icon flex-shrink-0">
-                            <img src="icons/idle.svg"/>
-                        </div>
                     </>
                 );
             }
             state = tripStateValue.idle;
             break;
         default:
-            text = (vehicle) => {
-                return (
-                    null
-                );
-            }
-            state = tripStateValue.none;
-            break;
+            return null;
     }
 
     return (
@@ -250,7 +240,6 @@ const typeBadge = (vehicle) => {
                     tripIndicator(state)
                 }
             </div>
-            
         </>
     );
 }
@@ -372,8 +361,8 @@ const timeDifferenceBadge = (vehicle) => {
     }
 
     return (
-        <div className={"border border-1 rounded-2 d-flex justify-content-end " +m}>         
-            <span className="td-text">{
+        <div className={"mt-2 d-flex justify-content-end ms-auto" +m}>         
+            <span className="px-1 fs-6 td-text border border-1 rounded-2">{
                 txt
             }
             </span>
@@ -386,14 +375,17 @@ const vehicleInformation = (vehicle) => {
     {
         return (
             <>
-                <div className="">
-                    {
-                        vehicle.line_name +" "+ vehicle.current_stop_name
-                    }
+                <div className="d-flex flex-column">
+                    <span className="id-vodica">
+                        ID vodica: {vehicle.driver_identifier}
+                    </span>
+                    <span className="service-d">
+                        Service id: {vehicle.service_number}
+                    </span>
+                    <span>
+                        Odchadza: {vehicle.next_departure_time}
+                    </span>
                 </div>
-                {
-                    timeDifferenceBadge(vehicle)
-                }
             </>
         );
     }
@@ -422,7 +414,7 @@ const ConatinerData = () => {
                     dostupny = " bg-offline "
                 }
                 return (
-                    <a id={vehicle.vehicle_number} key={vehicle.vehicle_number} href={"#" + vehicle.vehicle_number} className={"d-flex border border-1 shadow-sm rounded-3 align-items-center m-2 my-3 p-3 item" + dostupny}>
+                    <a id={vehicle.vehicle_number} key={vehicle.vehicle_number} href={"#" + vehicle.vehicle_number} className={"d-flex border border-1 shadow-sm rounded-3 align-items-center m-2 my-3 p-3 item position-relative" + dostupny}>
                         <div className="me-2 vehicle-number">
                             <div className={
                                 IconBackground(vehicle) + 
@@ -435,8 +427,13 @@ const ConatinerData = () => {
                                     typeBadge(vehicle)
                                 }
                             </div>
-                            <div className="flex-grow-1 d-flex flex-column p-1">
-                                {vehicleInformation(vehicle)}
+                            <div className="flex-grow-1 d-flex flex-column pt-1 ps-1">
+                                {
+                                    vehicleInformation(vehicle)
+                                }
+                                {
+                                    timeDifferenceBadge(vehicle)
+                                }
                             </div>
                         </div>
                     </a>
@@ -446,16 +443,7 @@ const ConatinerData = () => {
     );
 }
    
-const App = () => {
-    return (
-        <>
-            {CreateHeader()}
-            {ConatinerData()}
-        </>
-    );
-}
-
-const header = ReactDOM.createRoot(document.getElementById("header-part"))
+const header = ReactDOM.createRoot(document.getElementById("header-part"));
 const root = ReactDOM.createRoot(document.getElementById("root"));
-header.render(<CreateHeader />)
-root.render(<ConatinerData />)
+header.render(<CreateHeader />);
+root.render(<ConatinerData />);
