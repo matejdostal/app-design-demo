@@ -61,7 +61,21 @@ const translateType = (vehicle_type) => {
         default:
             return VehicleTypes.unknown;
     }
-}
+};
+
+const tripStateValue = {
+    idle : "IDLE",
+    on_the_way : "HEADING_TO_NEXT_STATION",
+    departure : "DEPARTURE",
+    arrival : "ARRIVAL",
+    none : null
+};
+
+const stateValue = {
+    meskanie: "Meskanie o: ",
+    nadbieha: "Nadbieha o: ",
+    none: ""
+};
 
 const TimeDifferenceNeededForLate = "00:01:00";
 
@@ -90,27 +104,111 @@ const iconType = (vehicle_type) =>{
             break;
     }
     return (
-        <img className="vehicle-icon mx-1" src={icon}/>
+        <img className="vehicle-icon flex-shrink-0 mx-1" src={icon}/>
     );
 }
 
 const typeBadge = (vehicle) => {
     const transType = translateType(vehicle.vehicle_type)
-    let text;
-    if (vehicle.line_name === null) {
-        text = "Nedostupný";
-    }
-    else {
-        text = vehicle.line_name + " : " + vehicle.current_stop_name;
-    }
-    return (
-        <div className={"vehicle-type bg-success text-dark bg-opacity-10 border border-1 shadow-md rounded-2 px-1 fs-6 text-wrap"}>
-            {iconType(transType)}
-            <span className="vehicle-type-text">
-            {
-                text
+    let text, extraClasses;
+    switch (vehicle.trip_status) {
+        case tripStateValue.on_the_way:
+            text = (vehicle) => {
+            
+                return (
+                    <>
+                        <span className="flex-grow-1">
+                            {
+                                vehicle.line_name + " : " + 
+                                vehicle.current_stop_name + " 🠖 " + 
+                                vehicle.destination_stop_name
+                            }
+                        </span>
+                    </>
+                );
+            };
+            extraClasses = " trip-on-way ";
+            break;
+        case tripStateValue.arrival:
+            text = (vehicle) => {
+                return (
+                    <>
+                        <span className="flex-grow-1">
+                            {
+                                vehicle.line_name + " : " + vehicle.current_stop_name + " 🠖 " + vehicle.destination_stop_name
+                            }
+                        </span>
+                        <div className="vehicle-trip-arrival vehicle-trip-icon flex-shrink-0">
+                            <img src="icons/arrival.svg"/>
+                        </div>
+                    </>
+                );
             }
-            </span>
+            extraClasses = " trip-arrival ";
+            break;
+        case tripStateValue.departure:
+            text = (vehicle) => {
+                return (
+                    <>
+                        <span className="flex-grow-1">
+                            {
+                                vehicle.line_name + " : " + vehicle.current_stop_name + " 🠖 " + "NEXT_STOP"
+                            }
+                        </span>
+                        <div className="vehicle-trip-departure vehicle-trip-icon flex-shrink-0">
+                            <img src="icons/departure.svg"/>
+                        </div>
+                    </>
+                );
+            }
+            extraClasses = " trip-departure ";
+            break;
+        case tripStateValue.idle:
+            text = (vehicle) => {
+                return (
+                    <>
+                        <span className="flex-grow-1">
+                            {
+                                vehicle.line_name + " : " + vehicle.current_stop_name
+                            }
+                        </span>
+                        <div className="vehicle-trip-idle vehicle-trip-icon flex-shrink-0">
+                            <img src="icons/idle.svg"/>
+                        </div>
+                    </>
+                );
+            }
+            extraClasses = " trip-idle ";
+            break;
+        default:
+            text = (vehicle) => {
+                return (
+                    <>
+                        <span className="flex-grow-1">
+                            {
+                                "Nie je pripojeny do databazy"
+                            }
+                        </span>
+                        <div className="vehicle-trip-null vehicle-trip-icon flex-shrink-0">
+                            <img src="icons/unknown-trip-state.svg"/>
+                        </div>
+                    </>
+                );
+            }
+            extraClasses = " trip-null ";
+            break;
+    }
+
+    return (
+        <div className={"vehicle-link-status d-flex bg-opacity-10 border border-1 shadow-sm rounded-3 px-1 mx-1 fs-6 text-wrap" + extraClasses}>
+            {
+                iconType(transType)
+            }
+            <div className="vehicle-type-text flex-grow-1 d-flex">
+            {
+                text(vehicle)
+            }
+            </div>
         </div>
     );
 }
