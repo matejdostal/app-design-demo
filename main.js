@@ -121,18 +121,20 @@ const typeBadge = (vehicle) => {
  * @param {string} timestring 
  * @returns {int} the time in seconds
  */
-// TODO: bug, there is a bug, I just can't fix it atm
 const parseTime = (timestring) => {
     if (timestring === undefined || timestring === null) return undefined;
     let time = timestring.match( /(-?[0-9][0-9]:[0-9][0-9]:[0-9][0-9])/g );
     if (time !== null) {
+        // a timestring containing 2 times is not possible/ it's neglibable to just not parse them
+        if (time.length > 1) return ErrorEvent;
+
         const s = time.toString().match(/[-]/g);
         const g = time.toString().split(':');
         if (s === null) {
             return ((g[0]*3600) + (g[1]*60) + (g[2]));
         }
         else {
-            return ((g[0]*3600) + (g[1]*60) + (g[2])) * (-1);
+            return (((g[0]*3600) + (g[1]*60) + (g[2])) * (-1));
         }
     }
 
