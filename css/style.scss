@@ -50,6 +50,24 @@ header {
         width: 18px;
         height: 18px;
     }
+    &-trip {
+        &-icon {
+            width: 16px;
+            height: 16px;
+        }
+        &-null {
+            background-color: rgb(212, 212, 212);
+        }
+        &-idle {
+            background-color: rgb(252, 190, 119);
+        }
+        &-departure {
+            background-color: rgb(243, 255, 139);
+        }
+        &-on-way {
+            background-color: rgb(124, 252, 156);
+        }
+    }
 }
 
 .dataroot {
@@ -81,7 +99,18 @@ header {
     &-late {
         background-color: orange;
     }
-    &-early {
-        background-color: yellow;
+
+.trip {
+    &-null {
+
+    }
+}
+
+.td {
+    &-meskanie, &-nadbieha {
+
+    }
+    &-text {
+        color: #000;
     }
 }
