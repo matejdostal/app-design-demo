@@ -1,5 +1,12 @@
 const { useState, useEffect } = React;
 
+
+/**
+ * TODO:
+ *  online
+ * state_dtime
+ * ide na cas
+ */
 /****************************************************************************************/
 /*     Header - just for looks, so I know what it will probably look like normally      */
 /****************************************************************************************/
@@ -73,7 +80,8 @@ const tripStateValue = {
 const stateValue = {
     meskanie: "Meskanie o: ",
     nadbieha: "Nadbieha o: ",
-    none: ""
+    okay: "Ide na cas: ",
+    none: null
 };
 
 const TimeDifferenceNeededForLate = "00:01:00";
@@ -131,7 +139,7 @@ const tripIndicator = (tripstatus) => {
 
 const vehLineBadge = (vehline, type) => {
     return (
-        <span className={" px-2 vehicle-line-badge-"+ type + " "}>
+        <span className={" px-2 align-self-center vehicle-line-badge-"+ type + " "}>
             <span className="vehicle-line text-white text-center">
                 {vehline}
             </span>
@@ -187,21 +195,23 @@ const typeBadge = (vehicle) => {
             <div className={"vehicle-link-status d-flex flex-cloumn bg-opacity-10 border border-1 shadow-sm rounded-3 px-1 text-wrap"}>
                 <div className={"vehicle-trip-type position-relative d-inline-flex p-1 flex-nowrap flex-fill"}>
                     <div className="d-flex flex-grow-1 align-self-center align-items-center">
-                            {
-                                vehLineBadge(vehicle.line_name,vehicle.vehicle_type)
-                            }
-                            <div className="ms-2 align-self-center">
-                            {
-                                text(vehicle)
-                            }
-                            </div>
-                    </div>
                     <div className={
                         IconBackground(vehicle) + 
                         "border border-1 rounded-pill text-center vehicle-number-text p-1 px-2 align-self-center"
                         } >
                             {vehicle.vehicle_number}
                     </div>
+                            
+                            <div className="ms-2 align-self-center">
+                            {
+                                text(vehicle)
+                            }
+                            </div>
+                            
+                    </div>
+                    {
+                                vehLineBadge(vehicle.line_name,vehicle.vehicle_type)
+                            }
                 </div>                
             </div>
         </>
@@ -285,6 +295,23 @@ const IconBackground = (vehicle) => {
 }
 
 /**
+ * Returns the absolute value of time difference string as string.
+ * The format must be `HH:mm:ss`.  
+ * **It doesn't check the strings validity!!!**
+ * @param {string} td 
+ * @returns {String}
+ */
+const timeStrip = (td) => {
+    if (td!== null) {
+        if (td.match(/[-]/g) !== null) {
+            return td.slice(1);
+        }
+        return td;
+    }
+    return "00:00:00";
+}
+
+/**
  * Creates the HTML represenation of a badge that displays the time difference when necessery.  
  * Displays either how late or how early a vehicle is using the time_difference data.
  * @param {Vehicle} vehicle 
@@ -292,7 +319,7 @@ const IconBackground = (vehicle) => {
  */
 const timeDifferenceBadge = (vehicle) => {
 
-    let m,txt = null;
+    let m = null,txt = null;
     switch (timeDifference(vehicle)) {
         case 0:
             m = " td-nadbieha";
@@ -303,8 +330,9 @@ const timeDifferenceBadge = (vehicle) => {
             txt = (stateValue.meskanie + vehicle.time_difference.slice(1));
             break;
         case 2:
-            m = " hidden ";
-            return;
+            m = " td-okay"
+            txt = (stateValue.okay + timeStrip(vehicle.time_difference))
+            break;
     }
 
     return (
