@@ -140,7 +140,7 @@ const tripIndicator = (tripstatus) => {
 const vehLineBadge = (vehline, type) => {
     return (
         <span className={" px-2 align-self-center vehicle-line-badge-"+ type + " "}>
-            <span className="vehicle-line text-white text-center">
+            <span className="vehicle-line text-center">
                 {vehline}
             </span>
         </span>
@@ -345,6 +345,23 @@ const timeDifferenceBadge = (vehicle) => {
         </div>
     );
 }
+
+const vehicleStatusText = (on) => {
+    let f = null;
+    if (on === true) {
+        f = "Online";
+    }
+    else {
+        f = "Offline";
+    }
+    return (
+        <>
+            <span>{f}</span>
+            <div className={"border border-1 shadow-sm status status-"+ f.toLowerCase()+" rounded-circle p-2 align-self-center ms-2"}/>
+        </>
+    );
+}
+
 /**
  * A function that returns a description about the particular vehicle.
  * @param {Vehicle} vehicle 
@@ -356,17 +373,16 @@ const vehicleInformation = (vehicle) => {
         return (
             <>
                 <div className="d-flex flex-column">
-                    <span className="id-vodica">
-                        Trip status:
-                        {
-                            tripIndicator(vehicle.trip_status)
-                        }
-                    </span>
                     <span className="service-d">
-                        Service id: {vehicle.service_number}
+                        {vehicle.service_number}
                     </span>
+                    <div className="vehicle-status d-inline-flex">
+                        {
+                            vehicleStatusText(vehicle.online)
+                        }
+                    </div>
                     <span>
-                        Odchadza: {vehicle.next_departure_time}
+                        {vehicle.state_dtime}
                     </span>
                 </div>
             </>
@@ -389,41 +405,43 @@ const ConatinerData = () => {
             });
     }, []);
     return (
-        <div className="container-fluid dataroot ">
-            {vehicles.map((vehicle) => {
-                //const fDate = formatDate(vehicle.state_dtime);
-                let dostupny = "";
-                if (vehicle.line_name === null) {
-                    return null;
-                }
-                else if (vehicle.online === false) {
-                    dostupny = " bg-offline ";
-                }
-                if (timeDifference(vehicle) === 0) {
-                    
-                    dostupny = " item-nadbieha ";
-                }
-                else if (timeDifference(vehicle) === 1) {
-                    dostupny = " item-meska ";
-                }
-                return (
-                    <a id={vehicle.vehicle_number} key={vehicle.vehicle_number} href={"#" + vehicle.vehicle_number} className={"d-flex border border-1 shadow-sm rounded-3 align-items-center m-2 my-3 p-3 item position-relative" + dostupny}>
-                        <div className=" flex-fill d-flex flex-column item-info">
-                            {
-                                typeBadge(vehicle)
-                            }
-                            <div className="flex-grow-1 d-flex flex-column pt-1 ps-1">
+        <div className="container-fluid dataroot d-flex flex-column justify-content-center ">
+            <div className="flex-grow-1">
+                {vehicles.map((vehicle) => {
+                    //const fDate = formatDate(vehicle.state_dtime);
+                    let dostupny = "";
+                    if (vehicle.line_name === null) {
+                        return null;
+                    }
+                    else if (vehicle.online === false) {
+                        dostupny = " bg-offline ";
+                    }
+                    if (timeDifference(vehicle) === 0) {
+
+                        dostupny = " item-nadbieha ";
+                    }
+                    else if (timeDifference(vehicle) === 1) {
+                        dostupny = " item-meska ";
+                    }
+                    return (
+                        <a id={vehicle.vehicle_number} key={vehicle.vehicle_number} href={"#" + vehicle.vehicle_number} className={"d-flex border border-1 shadow-sm rounded-3 align-items-center m-2 my-3 item position-relative" + dostupny}>
+                            <div className=" flex-fill d-flex flex-column item-info">
                                 {
-                                    vehicleInformation(vehicle)
+                                    typeBadge(vehicle)
                                 }
-                                {
-                                    timeDifferenceBadge(vehicle)
-                                }
+                                <div className="flex-grow-1 d-flex flex-column pt-1 ps-1 mx-2 my-1">
+                                    {
+                                        vehicleInformation(vehicle)
+                                    }
+                                    {
+                                        timeDifferenceBadge(vehicle)
+                                    }
+                                </div>
                             </div>
-                        </div>
-                    </a>
-                );
-        })}
+                        </a>
+                    );
+            })}
+            </div>
         </div>
     );
 }

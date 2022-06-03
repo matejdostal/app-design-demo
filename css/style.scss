@@ -1,3 +1,7 @@
+$nadbieha-color: rgb(255, 152, 152);
+$meska-color: rgb(239, 255, 213);
+$okay-color: rgb(197, 246, 255);
+
 header {
     width: 100%;
     top: 0;
@@ -30,14 +34,6 @@ header {
         border-color: aqua;
         border-width: 4px;
     }
-/*
-    &-meska {
-        background-color: rgb(254, 255, 215);
-    }
-    &-nadbieha {
-        background-color: rgb(255, 232, 232);
-    }
-    */
 }
 
 .bg-unavailable {
@@ -54,7 +50,6 @@ header {
             text-decoration: none;
             text-shadow: 1px;
             color: #000;
-            left: 90% !important
         }
     }
     &-icon {
@@ -75,6 +70,12 @@ header {
             &-bus {
                 @extend .vehicle-line-badge;
                 background-color: rgb(78, 139, 253) !important;
+                color: #fff;
+            }
+            &-trolleybus {
+                @extend .vehicle-line-badge;
+                background-color: rgb(173, 255, 106);
+                color: #000 !important;
             }
         }
     }
@@ -84,28 +85,38 @@ header {
     top: 0.4rem;
 }
 
+.status {
+    &-online {
+        background-color: greenyellow;
+        border-color: grey;
+    }
+    &-offline {
+        background-color: grey;
+        border-color: #000;
+    }
+}
 // existuje aj cez text-bg-* bootstrap class
 // ale radsej som implementoval nove, keby
 // existovala funkcia ne zmenu 
 .bg-vehicle {
     &-okay {
-        background-color: aquamarine;
+        background-color: $okay-color;
         border-color: rgb(0, 0, 0);
-        color: rgb(68, 68, 68);
+        //color: rgb(68, 68, 68);
         &:hover {
             color: rgb(37, 37, 37);
         }
     }
     &-late {
-        background-color: orange;
+        background-color: $meska-color;
+        //color: rgb(49, 49, 49);
         &:hover {
             color: rgb(0, 0, 0);
         }
-        color: rgb(49, 49, 49);
     }
     &-early {
-        background-color: red;
-        color:rgb(233, 233, 233);
+        background-color: $nadbieha-color;
+        //color:rgb(233, 233, 233);
     }
 }
 
@@ -141,13 +152,15 @@ header {
         padding-right: 00.150rem;
     }
     &-meskanie-text {
-        background-color: rgb(232, 255, 195);
+        background-color: $meska-color;
     }
     &-nadbieha-text {
-        background-color: rgb(255, 152, 152);
+        background-color: $nadbieha-color;
+    }
+    &-okay-text {
+        background-color: $okay-color;
     }
     &-text {
         color: #000;
-        
     }
 }

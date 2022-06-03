@@ -20,14 +20,6 @@ header {
   text-decoration: none;
   color: inherit;
   cursor: pointer;
-  /*
-      &-meska {
-          background-color: rgb(254, 255, 215);
-      }
-      &-nadbieha {
-          background-color: rgb(255, 232, 232);
-      }
-      */
 }
 .item:hover, .item:focus, .item:focus-visible {
   transition: 0.2s;
@@ -54,7 +46,6 @@ header {
   text-decoration: none;
   text-shadow: 1px;
   color: #000;
-  left: 90% !important;
 }
 .vehicle-icon {
   width: 18px;
@@ -67,35 +58,46 @@ header {
 .vehicle-line {
   font-size: 16px;
 }
-.vehicle-line-badge, .vehicle-line-badge-bus {
+.vehicle-line-badge, .vehicle-line-badge-trolleybus, .vehicle-line-badge-bus {
   border-radius: 0.3rem;
 }
 .vehicle-line-badge-bus {
   background-color: rgb(78, 139, 253) !important;
+  color: #fff;
+}
+.vehicle-line-badge-trolleybus {
+  background-color: rgb(173, 255, 106);
+  color: #000 !important;
 }
 
 .dataroot {
   top: 0.4rem;
 }
 
+.status-online {
+  background-color: greenyellow;
+  border-color: grey;
+}
+.status-offline {
+  background-color: grey;
+  border-color: #000;
+}
+
 .bg-vehicle-okay {
-  background-color: aquamarine;
+  background-color: rgb(197, 246, 255);
   border-color: rgb(0, 0, 0);
-  color: rgb(68, 68, 68);
 }
 .bg-vehicle-okay:hover {
   color: rgb(37, 37, 37);
 }
 .bg-vehicle-late {
-  background-color: orange;
-  color: rgb(49, 49, 49);
+  background-color: rgb(239, 255, 213);
 }
 .bg-vehicle-late:hover {
   color: rgb(0, 0, 0);
 }
 .bg-vehicle-early {
-  background-color: red;
-  color: rgb(233, 233, 233);
+  background-color: rgb(255, 152, 152);
 }
 
 .trip-statusindicator {
@@ -126,10 +128,13 @@ header {
   padding-right: 0.15rem;
 }
 .td-meskanie-text {
-  background-color: rgb(232, 255, 195);
+  background-color: rgb(239, 255, 213);
 }
 .td-nadbieha-text {
   background-color: rgb(255, 152, 152);
+}
+.td-okay-text {
+  background-color: rgb(197, 246, 255);
 }
 .td-text {
   color: #000;
