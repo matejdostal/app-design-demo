@@ -90,27 +90,6 @@ const TimeDifferenceNeededForLate = "00:01:00";
 /*                                                                                     */
 /***************************************************************************************/
 
-const iconType = (vehicle_type) =>{
-    let icon;
-    switch (vehicle_type) {
-        case VehicleTypes.bus:
-            icon = VehicleTypesIcons.bus;
-            break;
-        case VehicleTypes.trolleybus:
-            icon = VehicleTypesIcons.trolleybus;
-            break;
-        case VehicleTypes.train:
-            icon = VehicleTypesIcons.train;
-            break;
-        default:
-            icon = VehicleTypesIcons.unknown;
-            break;
-    }
-    return (
-        <img className="vehicle-icon flex-shrink-0 mx-1" src={icon}/>
-    );
-}
-
 const tripIndicator = (tripstatus) => {
     let st;
     switch (tripstatus) {
@@ -192,26 +171,29 @@ const typeBadge = (vehicle) => {
 
     return (
         <>
-            <div className={"vehicle-link-status d-flex flex-cloumn bg-opacity-10 border border-1 shadow-sm rounded-3 px-1 text-wrap"}>
-                <div className={"vehicle-trip-type position-relative d-inline-flex p-1 flex-nowrap flex-fill"}>
-                    <div className="d-flex flex-grow-1 align-self-center align-items-center">
-                    <div className={
-                        IconBackground(vehicle) + 
-                        "border border-1 rounded-pill text-center vehicle-number-text p-1 px-2 align-self-center"
-                        } >
-                            {vehicle.vehicle_number}
-                    </div>
-                            
-                            <div className="ms-2 align-self-center">
-                            {
-                                text(vehicle)
-                            }
-                            </div>
-                            
+            <div className={
+                    "status-" + IconBackground(vehicle) +
+                    "rounded-3 vehicle-link-status d-flex flex-cloumn bg-opacity-10  pe-1 text-wrap"
+                }>
+                <div className={"vehicle-trip-type position-relative d-inline-flex flex-nowrap flex-fill "}>
+                    <div className="d-flex flex-grow-1 align-self-center">
+                        <div className={
+                            IconBackground(vehicle) + 
+                            "border border-1 rounded-1 d-flex text-center p-1 px-2 align-items-center"
+                            } >
+                                <span className="vehicle-number-text">
+                                {vehicle.vehicle_number}
+                                </span>
+                        </div>
+                        <div className="ms-2 align-self-center p-1">
+                        {
+                            text(vehicle)
+                        }
+                        </div>
                     </div>
                     {
-                                vehLineBadge(vehicle.line_name,vehicle.vehicle_type)
-                            }
+                        vehLineBadge(vehicle.line_name,vehicle.vehicle_type)
+                    }
                 </div>                
             </div>
         </>
@@ -309,6 +291,10 @@ const timeStrip = (td) => {
         return td;
     }
     return "00:00:00";
+}
+
+const vehicleTripTimeStatus = (v) => {
+
 }
 
 /**

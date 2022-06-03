@@ -2,6 +2,12 @@ $nadbieha-color: rgb(255, 152, 152);
 $meska-color: rgb(239, 255, 213);
 $okay-color: rgb(197, 246, 255);
 
+html, body {
+    min-width:250;
+    width: auto !important;
+    width:250px;
+}
+
 header {
     width: 100%;
     top: 0;
@@ -50,6 +56,7 @@ header {
             text-decoration: none;
             text-shadow: 1px;
             color: #000;
+            text-align: center;
         }
     }
     &-icon {
@@ -60,6 +67,14 @@ header {
         &-icon {
             width: 16px;
             height: 16px;
+        }
+    }
+    &-link {
+        &-status {
+            border: 0;
+            border-bottom: 1px solid rgb(97, 97, 97);
+            border-bottom-left-radius: 0.125rem !important;
+            box-shadow: 0 .220rem .200rem rgba(0, 0, 0, 0.200);
         }
     }
     &-line {
@@ -83,6 +98,8 @@ header {
 
 .dataroot {
     top: 0.4rem;
+    max-width: 700px;
+    min-width: 250px;
 }
 
 .status {
@@ -93,6 +110,17 @@ header {
     &-offline {
         background-color: grey;
         border-color: #000;
+    }
+    &-bg-vehicle {
+        &-early {
+            background-color: rgba($nadbieha-color,0.2);
+        }
+        &-late {
+            background-color: rgba($meska-color,0.2);
+        }
+        &-okay {
+            background-color: rgba($okay-color,0.2);
+        }
     }
 }
 // existuje aj cez text-bg-* bootstrap class
@@ -117,31 +145,6 @@ header {
     &-early {
         background-color: $nadbieha-color;
         //color:rgb(233, 233, 233);
-    }
-}
-
-.trip {
-    &-statusindicator {
-        border-radius: 1px;
-        border-color: rgb(131, 131, 131) !important;
-        width: 18px;
-        height: 18px;
-    }
-
-    &-null {
-        background-color: rgb(141, 141, 141);
-    }
-    &-idle {
-        background-color: rgb(255, 164, 59);
-    }
-    &-departure {
-        background-color: rgb(236, 255, 66);
-    }
-    &-arrival {
-        background-color: rgb(239, 93, 255);
-    }
-    &-on-way {
-        background-color: rgb(125, 255, 155);
     }
 }
 
