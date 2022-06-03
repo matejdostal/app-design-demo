@@ -429,6 +429,7 @@ const ConatinerData = () => {
                 let dostupny = "";
                 if (vehicle.line_name === null) {
                     dostupny = " bg-unavailable ";
+                    return null;
                 }
                 else if (vehicle.online === false) {
                     dostupny = " bg-offline ";
