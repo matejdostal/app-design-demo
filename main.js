@@ -49,13 +49,6 @@ const VehicleTypes = {
     unknown: "Neznámy"
 };
 
-const VehicleTypesIcons = {
-    bus: "icons/bus.svg",
-    trolleybus: "icons/trolley.svg",
-    train: "icons/train.svg",
-    unknown: "icons/unknown.svg"
-};
-
 const translateType = (vehicle_type) => {
     switch (vehicle_type) {
         case "bus":
@@ -88,10 +81,6 @@ const TimeDifferenceNeededForLate = "00:01:00";
 /***************************************************************************************/
 /*                                                                                     */
 /***************************************************************************************/
-
-const formatDate = (date) => {
-    return (date);
-}
 
 const iconType = (vehicle_type) =>{
     let icon;
@@ -142,7 +131,7 @@ const tripIndicator = (tripstatus) => {
 
 const vehLineBadge = (vehline, type) => {
     return (
-        <span className={"p-1 px-2 vehicle-line-badge-"+ type + " "}>
+        <span className={" px-2 vehicle-line-badge-"+ type + " "}>
             <span className="vehicle-line text-white text-center">
                 {vehline}
             </span>
@@ -151,91 +140,41 @@ const vehLineBadge = (vehline, type) => {
 };
 
 /**
- * Defines the look of the current status indicator with the type
- * of vehicle.
+ * Creates and returns an HTML representaion of the item header information.  
+ * The header information is:
+ * - the line_number 
+ *   - with a background color appropiate for the vehicle type 
+ * - current stop
+ *   - next stop if found
+ * - vehicle_number
+ *   - with a background color according to the `timeDifference`
  * @param {Vehicle} vehicle 
  * @returns {HTML} `html`
  */
 const typeBadge = (vehicle) => {
-    let text, state;
+    let text, state = null;
     switch (vehicle.trip_status) {
         case tripStateValue.on_the_way:
             text = (vehicle) => {
-                return (
-                    <>
-                        <span className="flex-grow-1 align-self-center">
-                            {
-                                vehLineBadge(vehicle.line_name,vehicle.vehicle_type)
-                            }
-                            <div className="ms-2 align-self-strech">
-                                <span>                             
-                                    {
-                                        vehicle.current_stop_name + " 🠖 " + 
-                                        vehicle.destination_stop_name
-                                    }
-                                </span>
-                            </div>
-                        </span>
-                    </>
-                );
+                return (vehicle.current_stop_name + " 🠖 NEXT_STOP");
             };
             state = tripStateValue.on_the_way;
             break;
         case tripStateValue.arrival:
             text = (vehicle) => {
-                return (
-                    <>
-                        <span className="flex-grow-1 align-self-center">
-                            {
-                                vehLineBadge(vehicle.line_name,
-                                    vehicle.vehicle_type)
-                            }
-                            <span className="ms-2 align-self-strech">
-                            {
-                                vehicle.current_stop_name + " 🠖 " + vehicle.destination_stop_name
-                            }
-                            </span>
-                        </span>
-                    </>
-                );
+                return (vehicle.current_stop_name + " 🠖 " + vehicle.destination_stop_name);
             }
             state = tripStateValue.arrival;
             break;
         case tripStateValue.departure:
             text = (vehicle) => {
-                return (
-                    <>
-                        <span className="flex-grow-1 align-self-center">
-                            {
-                                vehLineBadge(vehicle.line_name,vehicle.vehicle_type)
-                            }
-                            <span className="ms-2 align-self-strech">
-                            {
-                                vehicle.current_stop_name + " 🠖 " + "NEXT_STOP"
-                            }
-                            </span>
-                        </span>
-                    </>
-                );
+                return (vehicle.current_stop_name + " 🠖 " + "NEXT_STOP");
             }
             state = tripStateValue.departure;
             break;
         case tripStateValue.idle:
             text = (vehicle) => {
-                return (
-                    <>
-                        <span className="flex-grow-1 align-self-center">
-                            {
-                                vehLineBadge(vehicle.line_name,vehicle.vehicle_type)
-                            }
-                            <span className="ms-2 align-self-strech">
-                            {
-                                vehicle.current_stop_name
-                            }
-                            </span>
-                        </span>
-                    </>
-                );
+                return (vehicle.current_stop_name);
             }
             state = tripStateValue.idle;
             break;
@@ -246,13 +185,20 @@ const typeBadge = (vehicle) => {
     return (
         <>
             <div className={"vehicle-link-status d-flex flex-cloumn bg-opacity-10 border border-1 shadow-sm rounded-3 px-1 text-wrap"}>
-                <div className={"vehicle-trip-type position-relative d-inline-flex flex-nowrap flex-fill"}>
-                    {
-                        text(vehicle)
-                    }
+                <div className={"vehicle-trip-type position-relative d-inline-flex p-1 flex-nowrap flex-fill"}>
+                    <div className="d-flex flex-grow-1 align-self-center align-items-center">
+                            {
+                                vehLineBadge(vehicle.line_name,vehicle.vehicle_type)
+                            }
+                            <div className="ms-2 align-self-center">
+                            {
+                                text(vehicle)
+                            }
+                            </div>
+                    </div>
                     <div className={
                         IconBackground(vehicle) + 
-                        "border border-1 rounded-3 text-center vehicle-number-text px-1 align-self-center"
+                        "border border-1 rounded-pill text-center vehicle-number-text p-1 px-2 align-self-center"
                         } >
                             {vehicle.vehicle_number}
                     </div>
@@ -266,7 +212,7 @@ const typeBadge = (vehicle) => {
  * time given in string into an integer that represents
  * the sum of the given time in seconds.
  * @param {String} timestring 
- * @returns {Int} the time in seconds
+ * @returns {Int} `seconds`
  */
 const parseTime = (timestring) => {
     if (timestring === undefined || timestring === null) return undefined;
@@ -285,44 +231,23 @@ const parseTime = (timestring) => {
             return ((g[0]*3600) + (g[1]*60) + (g[2]));
         }
         else {
-            return (((g[0]*3600) + (g[1]*60) + (g[2])) * (-1));
+            const val = ((g[0]*3600) + (g[1]*60) + (g[2]));
+            return (val < 0 ? val : val *(-1) );
         }
     }
 
     return undefined;
 }
-/**
- * Parses the given string and returns the absolute value of `timestring` if `timestring` is a time given in the format of **HH:mm:ss**
- * @param {String} timestring 
- * @returns {String} `String`
- */
-const timeAbsString = (timestring) => {
-    if (timestring === undefined || timestring === null) return undefined;
-
-    let time = timestring.match( /(-?[0-9][0-9]:[0-9][0-9]:[0-9][0-9])/g );
-    if (time !== null) {
-        if (time.length > 1) return ErrorEvent;
-
-        const s = time.toString().match(/[-]/g); // find negative symbol
-        
-        if (s === null) {
-            return time.toString();
-        }
-        else {
-            // znamienko je s[0]
-            return time.toString().slice(1);
-        }
-    }
-    return undefined;
-}
 
 /**
+ * Returns an `Int` that represents if a vehicle is late or early by comparing `the time_difference` of a vehicle to the constat `TimeDifferenceNeededForLate`.  
+ * 
  * **3 possible values**:  
  * `0` - `early`  
  * `1` - `late`  
  * `2` - `neither`
  * @param {Vehicle} vehicle 
- * @returns {Int} `seconds`
+ * @returns {Int} `0 | 1 | 2`
  */
 const timeDifference = (vehicle) => {
     const td = parseTime(TimeDifferenceNeededForLate);
@@ -359,6 +284,12 @@ const IconBackground = (vehicle) => {
     }
 }
 
+/**
+ * Creates the HTML represenation of a badge that displays the time difference when necessery.  
+ * Displays either how late or how early a vehicle is using the time_difference data.
+ * @param {Vehicle} vehicle 
+ * @returns {HTML} 
+ */
 const timeDifferenceBadge = (vehicle) => {
 
     let m,txt = null;
@@ -386,7 +317,11 @@ const timeDifferenceBadge = (vehicle) => {
         </div>
     );
 }
-
+/**
+ * A function that returns a description about the particular vehicle.
+ * @param {Vehicle} vehicle 
+ * @returns {HTML}
+ */
 const vehicleInformation = (vehicle) => {
     if (vehicle.service_number !== null)
     {
@@ -410,7 +345,10 @@ const vehicleInformation = (vehicle) => {
         );
     }
 }
-
+/**
+ * Returns the items to be inserted into the container
+ * @returns {HTML} 
+ */
 const ConatinerData = () => {
     const [vehicles, setVehicles] = useState([]);
 
@@ -428,7 +366,6 @@ const ConatinerData = () => {
                 //const fDate = formatDate(vehicle.state_dtime);
                 let dostupny = "";
                 if (vehicle.line_name === null) {
-                    dostupny = " bg-unavailable ";
                     return null;
                 }
                 else if (vehicle.online === false) {
