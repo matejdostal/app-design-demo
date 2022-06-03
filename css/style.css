@@ -20,6 +20,14 @@ header {
   text-decoration: none;
   color: inherit;
   cursor: pointer;
+  /*
+      &-meska {
+          background-color: rgb(254, 255, 215);
+      }
+      &-nadbieha {
+          background-color: rgb(255, 232, 232);
+      }
+      */
 }
 .item:hover, .item:focus, .item:focus-visible {
   transition: 0.2s;
@@ -46,6 +54,7 @@ header {
   text-decoration: none;
   text-shadow: 1px;
   color: #000;
+  left: 90% !important;
 }
 .vehicle-icon {
   width: 18px;
@@ -115,6 +124,12 @@ header {
   width: fit-content;
   padding-left: 0.15rem;
   padding-right: 0.15rem;
+}
+.td-meskanie-text {
+  background-color: rgb(232, 255, 195);
+}
+.td-nadbieha-text {
+  background-color: rgb(255, 152, 152);
 }
 .td-text {
   color: #000;
