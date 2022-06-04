@@ -25,6 +25,12 @@ header {
     overflow: hidden !important;
 }
 
+.dataroot {
+    top: 0.4rem;
+    max-width: 700px;
+    min-width: 250px;
+    font-size: 1.25rem;
+}
 .item {
     transition: all 0.5s;
     text-decoration: none;
@@ -96,10 +102,18 @@ header {
     }
 }
 
-.dataroot {
-    top: 0.4rem;
-    max-width: 700px;
-    min-width: 250px;
+.service {
+    &-id {
+        &-icon {
+            width: 1.2rem;
+            height: 1.2rem;
+        }
+    }
+}
+
+.state-dtime-icon {
+    width: 1.2rem;
+    height: 1.2rem;
 }
 
 .status {

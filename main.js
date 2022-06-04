@@ -342,10 +342,48 @@ const vehicleStatusText = (on) => {
     }
     return (
         <>
-            <span>{f}</span>
-            <div className={"border border-1 shadow-sm status status-"+ f.toLowerCase()+" rounded-circle p-2 align-self-center ms-2"}/>
+            <div className={"border border-1 shadow-sm status status-"+ f.toLowerCase()+" rounded-circle p-2 align-self-center me-2"}/>
+            <span>{f}</span>            
         </>
     );
+}
+
+const vehicleMsgTime = (state_dtime) => {
+    try {
+        let dtime = new Date(state_dtime);
+
+        let always = dtime.toTimeString();
+        always = always.match(/[0-9][0-9]:[0-9][0-9]:[0-9][0-9]/g)
+        let date = "", icon = "";
+        console.log("dtime: " + dtime);
+        const w = Math.abs(new Date() - new Date("January 01, 1970 00:01:00 UTC"));
+        console.log(w +"; "+ dtime.getTime());
+        if (dtime.getTime() <= w) {
+            icon = "-old.svg";
+        }
+        else {
+            icon = ".svg";
+        }
+
+        if ((new Date()).getDate() < dtime.getDate() ) {
+            date = dtime.toLocaleDateString()
+            icon = "-red.svg"
+        }
+        // slovensky format: d. M. YYYY HH:mm:ss
+        return (
+            <>
+                <img src={"icons/clock"+icon} className={"me-2 state-dtime-icon "}/>
+                <span className="state-dtime-text">
+                    {
+                        date + " " +always
+                    }
+                </span>
+            </>
+        );
+    } 
+    catch (error) {
+        console.log(Date.UTC + error);
+    }
 }
 
 /**
@@ -359,17 +397,23 @@ const vehicleInformation = (vehicle) => {
         return (
             <>
                 <div className="d-flex flex-column">
-                    <span className="service-d">
-                        {vehicle.service_number}
-                    </span>
+                    <div className="service-id d-flex align-items-center">
+                        <img src="icons/notes.svg" className="service-id-icon justify-self-strech me-2" />
+                        <span>
+                            {vehicle.service_number}
+                        </span>
+                        
+                    </div>
                     <div className="vehicle-status d-inline-flex">
                         {
                             vehicleStatusText(vehicle.online)
                         }
                     </div>
-                    <span>
-                        {vehicle.state_dtime}
-                    </span>
+                    <div className="state-dtime d-inline-flex align-items-center">
+                        {
+                            vehicleMsgTime(vehicle.state_dtime)
+                        }
+                    </div>
                 </div>
             </>
         );
