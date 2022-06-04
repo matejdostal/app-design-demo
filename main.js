@@ -382,7 +382,7 @@ const vehicleMsgTime = (state_dtime) => {
         );
     } 
     catch (error) {
-        console.log(Date.UTC + error);
+        console.log((new Date()).toDateString() + error);
     }
 }
 
