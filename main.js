@@ -143,19 +143,20 @@ const typeBadge = (vehicle) => {
     switch (vehicle.trip_status) {
         case tripStateValue.on_the_way:
             text = (vehicle) => {
-                return (vehicle.current_stop_name + " 🠖 NEXT_STOP");
+                return (vehicle.current_stop_name + " → " + "NASLEDUJÚCA ZASTÁVKA");
             };
             state = tripStateValue.on_the_way;
             break;
         case tripStateValue.arrival:
             text = (vehicle) => {
-                return (vehicle.current_stop_name + " 🠖 " + vehicle.destination_stop_name);
+                return (vehicle.current_stop_name + " → " + vehicle.destination_stop_name);
             }
             state = tripStateValue.arrival;
             break;
         case tripStateValue.departure:
             text = (vehicle) => {
-                return (vehicle.current_stop_name + " 🠖 " + "NEXT_STOP");
+                return (
+                    vehicle.current_stop_name + "→"  + "NASLEDUJÚCA ZASTÁVKA");
             }
             state = tripStateValue.departure;
             break;
@@ -290,7 +291,7 @@ const timeStrip = (td) => {
         }
         return td;
     }
-    return "00:00:00";
+    return "UNKNOWN";
 }
 
 const vehicleTripTimeStatus = (v) => {
@@ -353,8 +354,9 @@ const vehicleMsgTime = (state_dtime) => {
         let dtime;
         let date = "", icon = "";
         let always = "";
+        let today = new Date();
         if (state_dtime === "") {
-            dtime = new Date();
+            dtime = today;
         }
         else {
             dtime = new Date(state_dtime);
@@ -364,11 +366,13 @@ const vehicleMsgTime = (state_dtime) => {
         always = always.match(/[0-9][0-9]:[0-9][0-9]:[0-9][0-9]/g);
 
         
-        if (dtime.getTime() <= Math.abs(new Date() - new Date("January 01, 1970 00:05:00 UTC"))) {
-            date = dtime.toLocaleDateString();
+        if (dtime.getTime() <= Math.abs(today - new Date("January 01, 1970 00:05:00 UTC"))) {
+            if (dtime.getMonth() < today.getMonth() || dtime.getDate() < today.getDate()) {
+                date = dtime.toLocaleDateString();
+            }
             icon = "-red.svg";
         }
-        else if (dtime.getTime() <= Math.abs(new Date() - new Date("January 01, 1970 00:01:00 UTC"))) {
+        else if (dtime.getTime() <= Math.abs(today - new Date("January 01, 1970 00:01:00 UTC"))) {
             icon = "-old.svg";
         }
         else {
@@ -388,7 +392,7 @@ const vehicleMsgTime = (state_dtime) => {
         );
     } 
     catch (error) {
-        console.log((new Date()).toDateString() + error);
+        console.log((today).toDateString() + error);
     }
 }
 
