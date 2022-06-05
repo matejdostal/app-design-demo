@@ -351,6 +351,8 @@ const vehicleStatusText = (on) => {
 const vehicleMsgTime = (state_dtime) => {
     try {
         let dtime;
+        let date = "", icon = "";
+        let always = "";
         if (state_dtime === "") {
             dtime = new Date();
         }
@@ -358,24 +360,21 @@ const vehicleMsgTime = (state_dtime) => {
             dtime = new Date(state_dtime);
         }
 
-        let always = dtime.toTimeString();
+        always = dtime.toTimeString();
         always = always.match(/[0-9][0-9]:[0-9][0-9]:[0-9][0-9]/g);
 
-        let date = "", icon = "";
-        console.log("dtime: " + dtime);
-        const w = Math.abs(new Date() - new Date("January 01, 1970 00:01:00 UTC"));
-        console.log(w +"; "+ dtime.getTime());
-        if (dtime.getTime() <= w) {
+        
+        if (dtime.getTime() <= Math.abs(new Date() - new Date("January 01, 1970 00:05:00 UTC"))) {
+            date = dtime.toLocaleDateString();
+            icon = "-red.svg";
+        }
+        else if (dtime.getTime() <= Math.abs(new Date() - new Date("January 01, 1970 00:01:00 UTC"))) {
             icon = "-old.svg";
         }
         else {
             icon = ".svg";
         }
 
-        if ((new Date()).getDate() < dtime.getDate() ) {
-            date = dtime.toLocaleDateString();
-            icon = "-red.svg";
-        }
         // slovensky format: d. M. YYYY HH:mm:ss
         return (
             <>
