@@ -2,7 +2,7 @@
     {
         "vehicle_number": "TEST1",
         "ip_address": "10.10.202.188",
-        "state_dtime": "2022-06-05 11:15:02",
+        "state_dtime": "2022-06-06 17:20:02",
         "trip_status": "IDLE",
         "gps_longitude": 17.220092,
         "gps_latitude": 48.209173,
