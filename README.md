@@ -34,12 +34,15 @@ V pravom rohu je cislo linky. Pozadie predstavuje typ vozidla (modre - autobus, 
 
 V časti itemu kde sa udáva informácia o vozidle, prvý text hovorí o službu akú má vodič vozidla. Je to označené ikonkou poznámkového zošita s ceruzkou.  
 
-Druhý riadok zodpovedá stavu vozidla (online, offline). Ak je vozidlo je 'Online' krúžok je vyplnená zelenou farbou, ak je 'Offline' krúžok pred textom je vyplnená šedou farbou.
-![Information_part](./docs/item-design-information.png)
+Druhý riadok zodpovedá stavu vozidla (online, offline). Ak je vozidlo je 'Online' krúžok je vyplnená zelenou farbou, ak je 'Offline' krúžok pred textom je vyplnená šedou farbou.  
+
+![Information_part](./docs/item-design-information.png)  
 
 Posledný riadok zodopedá času kedy bola správa odoslaná z vozidla (**state_dtime**).  
-![Msg_Time](./docs/item-design-msg-time.png)
-Mal by to byť implementované tak, že:
+
+![Msg_Time](./docs/item-design-msg-time.png)  
+
+Mal by to byť implementované tak, že:  
 
 - ak správa bola odoslaná z vozidla ten istý deň, tak vypíše len hodiny, minúty a sekundy
 - ak správa bola odoslaná z vozidla *iný deň* - napríklad o deň na to - tak vypíše sa celý dátum vo formáte: dd/MM/YYYY HH:mm:ss.
