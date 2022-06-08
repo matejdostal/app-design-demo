@@ -141,30 +141,19 @@ const vehLineBadge = (vehline, type) => {
 const typeBadge = (vehicle) => {
     let text, state = null;
     switch (vehicle.trip_status) {
-        case tripStateValue.on_the_way:
-            text = (vehicle) => {
-                return (vehicle.current_stop_name + " → " + "NASLEDUJÚCA ZASTÁVKA");
-            };
-            state = tripStateValue.on_the_way;
-            break;
-        case tripStateValue.arrival:
-            text = (vehicle) => {
-                return (vehicle.current_stop_name + " → " + vehicle.destination_stop_name);
-            }
-            state = tripStateValue.arrival;
-            break;
-        case tripStateValue.departure:
-            text = (vehicle) => {
-                return (
-                    vehicle.current_stop_name + "→"  + "NASLEDUJÚCA ZASTÁVKA");
-            }
-            state = tripStateValue.departure;
-            break;
         case tripStateValue.idle:
             text = (vehicle) => {
                 return (vehicle.current_stop_name);
             }
             state = tripStateValue.idle;
+            break;
+        case tripStateValue.departure:
+        case tripStateValue.arrival:
+        case tripStateValue.on_the_way:
+            text = (vehicle) => {
+                return (vehicle.current_stop_name + " → " + vehicle.destination_stop_name);
+            }
+            state = tripStateValue.arrival;
             break;
         default:
             return null;

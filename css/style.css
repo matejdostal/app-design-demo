@@ -117,21 +117,21 @@ header {
   background-color: rgba(255, 152, 152, 0.3);
 }
 .status-bg-vehicle-late {
-  background-color: rgba(239, 255, 213, 0.3);
+  background-color: rgba(255, 242, 121, 0.3);
 }
 .status-bg-vehicle-okay {
-  background-color: rgba(197, 246, 255, 0.3);
+  background-color: rgba(146, 234, 250, 0.3);
 }
 
 .bg-vehicle-okay {
-  background-color: rgb(197, 246, 255);
+  background-color: rgb(146, 234, 250);
   border-color: rgb(0, 0, 0);
 }
 .bg-vehicle-okay:hover {
   color: rgb(37, 37, 37);
 }
 .bg-vehicle-late {
-  background-color: rgb(239, 255, 213);
+  background-color: rgb(255, 242, 121);
 }
 .bg-vehicle-late:hover {
   color: rgb(0, 0, 0);
@@ -146,13 +146,13 @@ header {
   padding-right: 0.15rem;
 }
 .td-meskanie-text {
-  background-color: rgb(239, 255, 213);
+  background-color: rgb(255, 242, 121);
 }
 .td-nadbieha-text {
   background-color: rgb(255, 152, 152);
 }
 .td-okay-text {
-  background-color: rgb(197, 246, 255);
+  background-color: rgb(146, 234, 250);
 }
 .td-text {
   color: #000;
