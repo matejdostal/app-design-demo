@@ -323,7 +323,7 @@ const timeDifferenceBadge = (vehicle) => {
     }
 
     return (
-        <div className={"mt-2 d-flex justify-content-end ms-auto " + m}>         
+        <div className={"mb-1 d-flex justify-content-end ms-auto " + m}>         
             <span className={"px-2 fs-6 td-text border border-1 rounded-pill " +m + "-text"}>
             {
                 txt
