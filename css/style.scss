@@ -19,13 +19,11 @@ header {
     width: 700px;
 }
 
-.container-fluid {
+.dataroot {
     width: 100%;
     font-family: "Segoe UI", "Tahoma", "Geneva", "Verdana", "sans-serif";
     overflow: hidden !important;
-}
-
-.dataroot {
+    background-color: rgb(189, 189, 189);
     top: 0.4rem;
     max-width: 700px;
     min-width: 250px;
@@ -36,6 +34,7 @@ header {
     text-decoration: none;
     color: inherit;
     cursor: pointer;
+    background-color: rgb(255, 255, 223);
     &:hover, &:focus, &:focus-visible{
         transition: 0.2s;
         background-color: rgb(252, 252, 241);
@@ -98,7 +97,7 @@ header {
             }
             &-trolleybus {
                 @extend .vehicle-line-badge;
-                background-color: rgb(173, 255, 106);
+                background-color: rgb(173, 255, 106) !important;
                 color: #000 !important;
             }
         }
@@ -121,7 +120,7 @@ header {
 
 .status {
     &-online {
-        background-color: greenyellow;
+        background-color: rgb(66, 231, 0);
         border-color: grey;
     }
     &-offline {
@@ -130,13 +129,13 @@ header {
     }
     &-bg-vehicle {
         &-early {
-            background-color: rgba($nadbieha-color,0.2);
+            background-color: rgba($nadbieha-color,0.3);
         }
         &-late {
-            background-color: rgba($meska-color,0.2);
+            background-color: rgba($meska-color,0.3);
         }
         &-okay {
-            background-color: rgba($okay-color,0.2);
+            background-color: rgba($okay-color,0.3);
         }
     }
 }
