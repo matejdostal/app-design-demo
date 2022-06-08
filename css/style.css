@@ -65,6 +65,9 @@ header {
   width: 18px;
   height: 18px;
 }
+.vehicle-trip-direction {
+  font-size: 14px;
+}
 .vehicle-trip-icon {
   width: 16px;
   height: 16px;
@@ -76,7 +79,7 @@ header {
   box-shadow: 0 0.22rem 0.2rem rgba(0, 0, 0, 0.2);
 }
 .vehicle-line {
-  font-size: 16px;
+  font-size: 18px;
 }
 .vehicle-line-badge, .vehicle-line-badge-trolleybus, .vehicle-line-badge-bus {
   border-radius: 0.3rem;

@@ -118,7 +118,7 @@ const tripIndicator = (tripstatus) => {
 
 const vehLineBadge = (vehline, type) => {
     return (
-        <span className={" px-2 align-self-center vehicle-line-badge-"+ type + " "}>
+        <span className={"d-inline-flex px-2 align-self-center align-items-center vehicle-line-badge-"+ type + " "}>
             <span className="vehicle-line text-center">
                 {vehline}
             </span>
@@ -186,7 +186,7 @@ const typeBadge = (vehicle) => {
                                 {vehicle.vehicle_number}
                                 </span>
                         </div>
-                        <div className="ms-2 align-self-center p-1">
+                        <div className="vehicle-trip-direction ms-2 align-self-center p-1">
                         {
                             text(vehicle)
                         }
