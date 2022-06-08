@@ -366,13 +366,13 @@ const vehicleMsgTime = (state_dtime) => {
         always = always.match(/[0-9][0-9]:[0-9][0-9]:[0-9][0-9]/g);
 
         
-        if (dtime.getTime() <= Math.abs(today - new Date("January 01, 1970 00:05:00 UTC"))) {
+        if (dtime.getTime() <= Math.abs(today - new Date("January 01, 1970 00:05:00"))) {
             if (dtime.getMonth() < today.getMonth() || dtime.getDate() < today.getDate()) {
                 date = dtime.toLocaleDateString();
             }
             icon = "-red.svg";
         }
-        else if (dtime.getTime() <= Math.abs(today - new Date("January 01, 1970 00:01:00 UTC"))) {
+        else if (dtime.getTime() <= Math.abs(today - new Date("January 01, 1970 00:01:00"))) {
             icon = "-old.svg";
         }
         else {
