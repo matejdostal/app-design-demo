@@ -23,13 +23,17 @@ header {
     width: 100%;
     font-family: "Segoe UI", "Tahoma", "Geneva", "Verdana", "sans-serif";
     overflow: hidden !important;
-    background-color: rgb(189, 189, 189);
+    background-color: rgb(255, 246, 246);
     top: 0.4rem;
     max-width: 700px;
     min-width: 250px;
     font-size: 1.25rem;
 }
 .item {
+    &-container {
+        
+        box-shadow: .250rem .350rem .70rem rgba(0, 0, 0, 0.200), -.150rem -.020rem .50rem rgba(0,0,0,.120) !important;
+    }
     transition: all 0.5s;
     text-decoration: none;
     color: inherit;

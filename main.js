@@ -464,7 +464,7 @@ const ConatinerData = () => {
                         dostupny = " item-meska ";
                     }
                     return (
-                        <a id={vehicle.vehicle_number} key={vehicle.vehicle_number} href={"#" + vehicle.vehicle_number} className={"d-flex border border-1 shadow-sm rounded-3 align-items-center m-2 my-3 item position-relative" + dostupny}>
+                        <a id={vehicle.vehicle_number} key={vehicle.vehicle_number} href={"#" + vehicle.vehicle_number} className={"d-flex border border-1 shadow-sm rounded-3 align-items-center m-2 my-3 item position-relative item-container" + dostupny}>
                             <div className=" flex-fill d-flex flex-column item-info">
                                 {
                                     typeBadge(vehicle)
