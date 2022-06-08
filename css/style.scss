@@ -31,7 +31,8 @@ header {
 }
 .item {
     &-container {
-        
+        border-color: #000;
+        border-width: 1px;
         box-shadow: .250rem .350rem .70rem rgba(0, 0, 0, 0.200), -.150rem -.020rem .50rem rgba(0,0,0,.120) !important;
     }
     transition: all 0.5s;
@@ -74,7 +75,7 @@ header {
     }
     &-trip {
         &-direction {
-            font-size: 14px;
+            font-size: 16px;
         }
         &-icon {
             width: 16px;

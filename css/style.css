@@ -34,6 +34,8 @@ header {
   background-color: rgb(255, 255, 223);
 }
 .item-container {
+  border-color: #000;
+  border-width: 1px;
   box-shadow: 0.25rem 0.35rem 0.7rem rgba(0, 0, 0, 0.2), -0.15rem -0.02rem 0.5rem rgba(0, 0, 0, 0.12) !important;
 }
 .item:hover, .item:focus, .item:focus-visible {
@@ -68,7 +70,7 @@ header {
   height: 18px;
 }
 .vehicle-trip-direction {
-  font-size: 14px;
+  font-size: 16px;
 }
 .vehicle-trip-icon {
   width: 16px;

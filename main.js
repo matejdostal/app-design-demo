@@ -171,9 +171,11 @@ const typeBadge = (vehicle) => {
                             IconBackground(vehicle) + 
                             "border border-1 rounded-1 d-flex text-center p-1 px-2 align-items-center"
                             } >
-                                <span className="vehicle-number-text">
-                                {vehicle.vehicle_number}
-                                </span>
+                                <div className="d-flex vehicle-number-text align-self-center">
+                                    <span>
+                                        {vehicle.vehicle_number}
+                                    </span>
+                                </div>
                         </div>
                         <div className="vehicle-trip-direction ms-2 align-self-center p-1">
                         {
@@ -453,7 +455,7 @@ const ConatinerData = () => {
                         dostupny = " item-meska ";
                     }
                     return (
-                        <a id={vehicle.vehicle_number} key={vehicle.vehicle_number} href={"#" + vehicle.vehicle_number} className={"d-flex border border-1 shadow-sm rounded-3 align-items-center m-2 my-3 item position-relative item-container" + dostupny}>
+                        <a id={vehicle.vehicle_number} key={vehicle.vehicle_number} href={"#" + vehicle.vehicle_number} className={"d-flex border rounded-3 align-items-center m-2 my-3 item position-relative item-container" + dostupny}>
                             <div className=" flex-fill d-flex flex-column item-info">
                                 {
                                     typeBadge(vehicle)
