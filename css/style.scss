@@ -23,7 +23,7 @@ header {
     width: 100%;
     font-family: "Segoe UI", "Tahoma", "Geneva", "Verdana", "sans-serif";
     overflow: hidden !important;
-    background-color: rgb(255, 246, 246);
+    background-color: rgb(209, 209, 209);
     top: 0.4rem;
     max-width: 700px;
     min-width: 250px;
@@ -39,7 +39,7 @@ header {
     text-decoration: none;
     color: inherit;
     cursor: pointer;
-    background-color: rgb(255, 255, 223);
+    background-color: rgb(255, 255, 255);
     &:hover, &:focus, &:focus-visible{
         transition: 0.2s;
         background-color: rgb(252, 252, 241);
