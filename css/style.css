@@ -19,7 +19,7 @@ header {
   width: 100%;
   font-family: "Segoe UI", "Tahoma", "Geneva", "Verdana", "sans-serif";
   overflow: hidden !important;
-  background-color: rgba(68, 68, 68, 0.692);
+  background-color: rgba(247, 247, 247, 0.658);
   top: 0.4rem;
   max-width: 700px;
   min-width: 250px;
@@ -35,13 +35,12 @@ header {
   background-color: rgb(255, 255, 255);
 }
 .item-container {
-  border-color: #000;
-  border-width: 1px;
-  box-shadow: 0.25rem 0.35rem 0.7rem rgba(0, 0, 0, 0.2), -0.15rem -0.02rem 0.5rem rgba(0, 0, 0, 0.12) !important;
+  border-top: 1px solid rgb(133, 133, 133);
+  border-bottom: 1px solid rgb(133, 133, 133);
 }
 .item:hover, .item:focus, .item:focus-visible {
   transition: 0.2s;
-  background-color: rgb(252, 252, 241);
+  background-color: rgb(254, 254, 254);
   color: inherit;
   box-shadow: 0.25rem 0.75rem 0.8rem rgba(0, 0, 0, 0.2), -0.25rem -0.12rem 0.8rem rgba(0, 0, 0, 0.12) !important;
 }
@@ -79,9 +78,6 @@ header {
 }
 .vehicle-link-status {
   border: 0;
-  border-bottom: 1px solid rgb(97, 97, 97);
-  border-bottom-left-radius: 0.125rem !important;
-  box-shadow: 0 0.22rem 0.2rem rgba(0, 0, 0, 0.2);
 }
 .vehicle-line {
   font-size: 18px;

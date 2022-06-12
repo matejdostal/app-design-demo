@@ -23,7 +23,7 @@ header {
     width: 100%;
     font-family: "Segoe UI", "Tahoma", "Geneva", "Verdana", "sans-serif";
     overflow: hidden !important;
-    background-color: rgba(68, 68, 68, 0.692);
+    background-color: rgba(247, 247, 247, 0.658);
     top: 0.4rem;
     max-width: 700px;
     min-width: 250px;
@@ -32,9 +32,11 @@ header {
 }
 .item {
     &-container {
-        border-color: #000;
-        border-width: 1px;
-        box-shadow: .250rem .350rem .70rem rgba(0, 0, 0, 0.200), -.150rem -.020rem .50rem rgba(0,0,0,.120) !important;
+        border-top: 1px solid rgb(133, 133, 133) ;
+        border-bottom: 1px solid rgb(133, 133, 133);
+        //border-color: #000;
+        //border-width: 1px;
+        //box-shadow: .250rem .350rem .70rem rgba(0, 0, 0, 0.200), -.150rem -.020rem .50rem rgba(0,0,0,.120) !important;
     }
     transition: all 0.5s;
     text-decoration: none;
@@ -43,7 +45,7 @@ header {
     background-color: rgb(255, 255, 255);
     &:hover, &:focus, &:focus-visible{
         transition: 0.2s;
-        background-color: rgb(252, 252, 241);
+        background-color: rgb(254, 254, 254);
         color: inherit;
         box-shadow: .250rem .750rem .80rem rgba(0, 0, 0, 0.200), -.250rem -.120rem .80rem rgba(0,0,0,.120) !important;
     }
@@ -86,9 +88,9 @@ header {
     &-link {
         &-status {
             border: 0;
-            border-bottom: 1px solid rgb(97, 97, 97);
-            border-bottom-left-radius: 0.125rem !important;
-            box-shadow: 0 .220rem .200rem rgba(0, 0, 0, 0.200);
+            //border-bottom: 1px solid rgb(97, 97, 97);
+            //border-bottom-left-radius: 0.125rem !important;
+            //box-shadow: 0 .220rem .200rem rgba(0, 0, 0, 0.200);
         }
     }
     &-line {
