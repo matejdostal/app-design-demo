@@ -2,6 +2,7 @@ html, body {
   min-width: 250;
   width: auto !important;
   width: 250px;
+  background-color: rgb(255, 0, 0);
 }
 
 header {
@@ -19,7 +20,7 @@ header {
   width: 100%;
   font-family: "Segoe UI", "Tahoma", "Geneva", "Verdana", "sans-serif";
   overflow: hidden !important;
-  background-color: rgba(247, 247, 247, 0.658);
+  background-color: rgb(247, 247, 247);
   top: 0.4rem;
   max-width: 700px;
   min-width: 250px;
@@ -45,8 +46,9 @@ header {
   box-shadow: 0.25rem 0.75rem 0.8rem rgba(0, 0, 0, 0.2), -0.25rem -0.12rem 0.8rem rgba(0, 0, 0, 0.12) !important;
 }
 .item:focus, .item:focus-visible {
-  border-color: aqua;
-  border-width: 4px;
+  border-color: rgb(199, 199, 199);
+  border-width: 1px;
+  border-radius: 0.35rem;
 }
 
 .bg-unavailable {
@@ -122,9 +124,11 @@ header {
   background-color: rgba(146, 234, 250, 0.3);
 }
 
+.bg-vehicle-internal {
+  border-right: 1px solid rgb(112, 112, 112);
+}
 .bg-vehicle-okay {
   background-color: rgb(146, 234, 250);
-  border-color: rgb(0, 0, 0);
 }
 .bg-vehicle-okay:hover {
   color: rgb(37, 37, 37);

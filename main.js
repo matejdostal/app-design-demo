@@ -168,8 +168,9 @@ const typeBadge = (vehicle) => {
                 <div className={"vehicle-trip-type position-relative d-inline-flex flex-nowrap flex-fill "}>
                     <div className="d-flex flex-grow-1 align-self-center">
                         <div className={
+                            // rounded-start
                             IconBackground(vehicle) + 
-                            "border-end border-1 rounded-start d-flex text-center p-1 px-2 align-items-center"
+                            "bg-vehicle-internal d-flex text-center p-1 px-2 align-items-center"
                             } >
                                 <div className="d-flex vehicle-number-text align-self-center">
                                     <span>
